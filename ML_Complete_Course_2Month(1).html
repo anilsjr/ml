@@ -1,0 +1,2657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning Complete Course — 2 Month Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --paper: #faf8f3;
+  --cream: #f2eed8;
+  --accent: #c0392b;
+  --accent2: #2471a3;
+  --accent3: #1a7a4a;
+  --gold: #d4ac0d;
+  --code-bg: #1a1a2e;
+  --code-text: #e0e0e0;
+  --highlight: #fff3cd;
+  --border: #d5c9a1;
+  --muted: #6b6355;
+  --shadow: rgba(0,0,0,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Source Serif 4',Georgia,serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.85;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(10,10,10,0.97);
+  backdrop-filter:blur(10px);
+  border-bottom:3px solid var(--accent);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+nav .logo{
+  font-family:'Playfair Display',serif;
+  color:#fff;font-size:1.25rem;font-weight:900;
+  letter-spacing:1px;
+}
+nav .logo span{color:var(--accent);}
+.nav-links{display:flex;gap:0;overflow-x:auto;}
+.nav-links a{
+  color:#ccc;font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  text-decoration:none;padding:0 0.9rem;height:56px;
+  display:flex;align-items:center;
+  border-left:1px solid #2a2a2a;
+  white-space:nowrap;transition:all 0.2s;
+}
+.nav-links a:hover{background:var(--accent);color:#fff;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(135deg,#0d0d0d 0%,#1a0a0a 50%,#0a0d1a 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 2rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(192,57,43,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(36,113,163,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 60% 80%, rgba(212,172,13,0.1) 0%, transparent 40%);
+  pointer-events:none;
+}
+.hero-badge{
+  font-family:'JetBrains Mono',monospace;font-size:0.75rem;
+  color:var(--accent);border:1px solid var(--accent);
+  padding:0.3rem 1rem;border-radius:2px;letter-spacing:3px;
+  margin-bottom:2rem;text-transform:uppercase;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,8vw,7rem);
+  color:#fff;line-height:1;margin-bottom:0.5rem;
+  font-weight:900;
+}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero .subtitle{
+  color:#aaa;font-size:1.2rem;max-width:650px;
+  margin:1.5rem auto 3rem;font-weight:300;
+}
+.hero-stats{
+  display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;
+  margin-bottom:3rem;
+}
+.stat{text-align:center;}
+.stat .num{
+  font-family:'Playfair Display',serif;
+  font-size:3rem;font-weight:900;
+  color:var(--accent);display:block;
+}
+.stat .lbl{color:#888;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.scroll-hint{
+  color:#555;font-size:0.8rem;letter-spacing:2px;
+  font-family:'JetBrains Mono',monospace;
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+/* ── CONTENT WRAPPER ── */
+main{max-width:1100px;margin:0 auto;padding:4rem 2rem;}
+
+/* ── WEEK HEADER ── */
+.week-header{
+  margin:5rem 0 2rem;
+  padding:2rem 2.5rem;
+  background:var(--ink);
+  color:#fff;
+  border-left:6px solid var(--accent);
+  position:relative;
+  overflow:hidden;
+}
+.week-header::after{
+  content:attr(data-week);
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:'Playfair Display',serif;
+  font-size:8rem;font-weight:900;
+  color:rgba(255,255,255,0.05);
+  pointer-events:none;line-height:1;
+}
+.week-header .week-num{
+  font-family:'JetBrains Mono',monospace;font-size:0.75rem;
+  color:var(--accent);letter-spacing:3px;text-transform:uppercase;
+}
+.week-header h2{
+  font-family:'Playfair Display',serif;font-size:2.2rem;
+  margin:0.3rem 0 0.5rem;
+}
+.week-header p{color:#aaa;font-size:0.95rem;}
+
+/* ── LESSON CARD ── */
+.lesson{
+  background:#fff;
+  border:1px solid var(--border);
+  margin-bottom:3rem;
+  box-shadow:0 2px 20px var(--shadow);
+  border-radius:2px;
+  overflow:hidden;
+}
+.lesson-header{
+  padding:1.5rem 2rem;
+  border-bottom:2px solid var(--cream);
+  display:flex;align-items:flex-start;gap:1.5rem;
+}
+.lesson-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;color:var(--muted);letter-spacing:2px;
+  white-space:nowrap;margin-top:4px;
+}
+.lesson-title{
+  font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;
+  color:var(--ink);
+}
+.lesson-body{padding:2rem 2.5rem;}
+
+/* ── TYPOGRAPHY ── */
+h3{
+  font-family:'Playfair Display',serif;font-size:1.3rem;
+  margin:2rem 0 0.8rem;color:var(--ink);
+  border-bottom:1px solid var(--border);padding-bottom:0.4rem;
+}
+h4{
+  font-family:'JetBrains Mono',monospace;font-size:0.9rem;
+  margin:1.5rem 0 0.5rem;color:var(--accent);
+  letter-spacing:1px;text-transform:uppercase;
+}
+p{margin-bottom:1rem;}
+strong{color:var(--ink);}
+ul,ol{padding-left:1.5rem;margin-bottom:1rem;}
+li{margin-bottom:0.4rem;}
+
+/* ── CONCEPT BOX ── */
+.concept-box{
+  background:var(--cream);
+  border-left:4px solid var(--gold);
+  padding:1.2rem 1.5rem;
+  margin:1.5rem 0;
+  border-radius:0 2px 2px 0;
+}
+.concept-box .label{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  color:var(--gold);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:0.5rem;font-weight:600;
+}
+
+/* ── MATH BOX ── */
+.math-box{
+  background:#f0f4ff;
+  border:1px solid #b8c8ee;
+  border-left:4px solid var(--accent2);
+  padding:1.5rem 2rem;
+  margin:1.5rem 0;
+  border-radius:0 4px 4px 0;
+  font-family:'JetBrains Mono',monospace;
+  overflow-x:auto;
+}
+.math-box .label{
+  font-size:0.7rem;color:var(--accent2);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:0.8rem;font-weight:600;
+  font-family:'JetBrains Mono',monospace;
+}
+.math-box .formula{
+  font-size:1.1rem;color:#1a2a4a;
+  line-height:2;
+}
+.math-box .formula big{font-size:1.5em;}
+
+/* ── EXAMPLE BOX ── */
+.example-box{
+  background:#f0fff4;
+  border:1px solid #a8d5b5;
+  border-left:4px solid var(--accent3);
+  padding:1.2rem 1.5rem;
+  margin:1.5rem 0;
+  border-radius:0 4px 4px 0;
+}
+.example-box .label{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  color:var(--accent3);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:0.5rem;font-weight:600;
+}
+
+/* ── ALERT / NOTE ── */
+.note{
+  background:#fff8e1;
+  border:1px solid #f9d030;
+  border-left:4px solid #f39c12;
+  padding:1rem 1.5rem;margin:1.5rem 0;
+  border-radius:0 4px 4px 0;
+  font-size:0.93rem;
+}
+.note::before{content:'📌 Note: ';font-weight:700;color:#f39c12;}
+
+.warning{
+  background:#fff0f0;border:1px solid #f5b7b1;
+  border-left:4px solid var(--accent);
+  padding:1rem 1.5rem;margin:1.5rem 0;
+  border-radius:0 4px 4px 0;font-size:0.93rem;
+}
+.warning::before{content:'⚠️ Warning: ';font-weight:700;color:var(--accent);}
+
+/* ── CODE ── */
+.code-block{
+  background:var(--code-bg);
+  border-radius:4px;margin:1.5rem 0;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+.code-header{
+  background:#252545;padding:0.6rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.code-header .filename{
+  font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#888;
+}
+.code-header .lang-badge{
+  font-family:'JetBrains Mono',monospace;font-size:0.65rem;
+  background:var(--accent);color:#fff;padding:0.15rem 0.5rem;border-radius:2px;
+}
+.code-block pre{
+  padding:1.5rem;overflow-x:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.85rem;line-height:1.7;
+  color:var(--code-text);
+}
+.code-block pre .c{color:#6a9955;} /* comment */
+.code-block pre .k{color:#569cd6;} /* keyword */
+.code-block pre .s{color:#ce9178;} /* string */
+.code-block pre .n{color:#4ec9b0;} /* class name */
+.code-block pre .f{color:#dcdcaa;} /* function */
+.code-block pre .num{color:#b5cea8;} /* number */
+
+/* ── TABLE ── */
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.9rem;}
+th{background:var(--ink);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:1px;}
+td{padding:0.6rem 1rem;border-bottom:1px solid var(--border);}
+tr:nth-child(even) td{background:var(--cream);}
+tr:hover td{background:#f0ecde;}
+
+/* ── PROJECT CARD ── */
+.project-card{
+  background:linear-gradient(135deg,#0d0d0d,#1a1a2e);
+  color:#fff;padding:2.5rem;margin:2rem 0;
+  border-radius:4px;border-left:6px solid var(--gold);
+  box-shadow:0 8px 40px rgba(0,0,0,0.4);
+}
+.project-card .project-tag{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  color:var(--gold);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.project-card h3{
+  color:#fff;border:none;font-size:1.5rem;margin-top:0;padding:0;margin-bottom:0.5rem;
+}
+.project-card p{color:#bbb;margin-bottom:1rem;}
+.project-steps{
+  background:rgba(255,255,255,0.05);
+  border-radius:4px;padding:1.2rem 1.5rem;margin-top:1rem;
+}
+.project-steps li{color:#ccc;margin-bottom:0.5rem;font-size:0.93rem;}
+
+/* ── ALGO SUMMARY TABLE ── */
+.algo-card{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+  margin:1.5rem 0;
+}
+.algo-card .card{
+  background:var(--cream);border:1px solid var(--border);
+  padding:1.2rem;border-radius:2px;
+}
+.algo-card .card h4{margin-top:0;font-size:0.75rem;}
+.algo-card .card ul{font-size:0.88rem;}
+
+/* ── PROGRESS TRACKER ── */
+.curriculum-overview{
+  background:var(--ink);color:#fff;
+  padding:3rem;margin:3rem 0;border-radius:4px;
+}
+.curriculum-overview h2{
+  font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:2rem;
+  color:var(--gold);
+}
+.week-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.week-item{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  padding:1rem;border-radius:2px;
+  border-top:3px solid var(--accent);
+}
+.week-item .wn{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#888;letter-spacing:2px;}
+.week-item .wt{font-size:0.92rem;color:#ddd;margin-top:0.3rem;}
+
+/* ── DIVIDER ── */
+.divider{
+  text-align:center;margin:4rem 0;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;font-size:0.75rem;
+  letter-spacing:4px;
+}
+.divider::before,.divider::after{
+  content:'──────────────';display:inline;color:var(--border);
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);color:#888;
+  text-align:center;padding:3rem 2rem;
+  font-family:'JetBrains Mono',monospace;font-size:0.8rem;
+  border-top:3px solid var(--accent);
+}
+footer strong{color:var(--accent);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .lesson-body{padding:1.5rem 1.2rem;}
+  .week-header{padding:1.5rem;}
+  .algo-card{grid-template-columns:1fr;}
+  nav .nav-links{display:none;}
+  .hero h1{font-size:2.5rem;}
+  .hero-stats{gap:1.5rem;}
+}
+
+/* ── STEP BOXES ── */
+.steps{counter-reset:step;list-style:none;padding:0;}
+.steps li{
+  counter-increment:step;
+  padding:0.8rem 1rem 0.8rem 3.5rem;
+  position:relative;margin-bottom:0.5rem;
+  background:var(--cream);border-radius:2px;
+  border-left:3px solid var(--accent2);
+}
+.steps li::before{
+  content:counter(step);
+  position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);
+  width:1.6rem;height:1.6rem;
+  background:var(--accent2);color:#fff;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:600;
+  line-height:1.6rem;text-align:center;
+}
+
+/* ── KEYWORD highlight ── */
+.kw{
+  background:var(--highlight);padding:0.1em 0.4em;
+  border-radius:2px;font-family:'JetBrains Mono',monospace;
+  font-size:0.88em;color:#a0390a;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">ML<span>.</span>Academy</div>
+  <div class="nav-links">
+    <a href="#week1">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+    <a href="#week5">Week 5</a>
+    <a href="#week6">Week 6</a>
+    <a href="#week7">Week 7</a>
+    <a href="#week8">Week 8</a>
+    <a href="#projects">Projects</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">2-Month Complete Course</div>
+  <h1>Machine<br><em>Learning</em></h1>
+  <p class="subtitle">A comprehensive, beginner-friendly course covering every major ML algorithm — from Linear Regression to Support Vector Machines — with real code, math, and projects.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="num">8</span><span class="lbl">Weeks</span></div>
+    <div class="stat"><span class="num">12+</span><span class="lbl">Algorithms</span></div>
+    <div class="stat"><span class="num">50+</span><span class="lbl">Code Examples</span></div>
+    <div class="stat"><span class="num">6</span><span class="lbl">Projects</span></div>
+  </div>
+  <div class="scroll-hint">▼ &nbsp; SCROLL TO BEGIN &nbsp; ▼</div>
+</section>
+
+<main>
+
+<!-- CURRICULUM OVERVIEW -->
+<div class="curriculum-overview">
+  <h2>📚 2-Month Curriculum Roadmap</h2>
+  <div class="week-grid">
+    <div class="week-item"><div class="wn">WEEK 1</div><div class="wt">Python & ML Foundations + Simple Linear Regression</div></div>
+    <div class="week-item"><div class="wn">WEEK 2</div><div class="wt">Multiple Linear Regression + Feature Engineering</div></div>
+    <div class="week-item"><div class="wn">WEEK 3</div><div class="wt">Logistic Regression + Binary Classification</div></div>
+    <div class="week-item"><div class="wn">WEEK 4</div><div class="wt">Optimization Techniques — Gradient Descent Family</div></div>
+    <div class="week-item"><div class="wn">WEEK 5</div><div class="wt">Regularization — Ridge, Lasso, ElasticNet</div></div>
+    <div class="week-item"><div class="wn">WEEK 6</div><div class="wt">Support Vector Machines (SVM) — All Variants</div></div>
+    <div class="week-item"><div class="wn">WEEK 7</div><div class="wt">Advanced SVMs — Kernels, Multi-class SVM</div></div>
+    <div class="week-item"><div class="wn">WEEK 8</div><div class="wt">Capstone Projects + Model Evaluation Mastery</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 1 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week1" class="week-header" data-week="W1">
+  <div class="week-num">WEEK 01 · DAYS 1–7</div>
+  <h2>Foundations + Simple Linear Regression</h2>
+  <p>Build the base: understand what ML is, set up your environment, and master your first algorithm.</p>
+</div>
+
+<!-- LESSON 1 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 1.1</div>
+    <h2 class="lesson-title">What is Machine Learning? (For Complete Beginners)</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 Core Concept</div>
+      <p>Machine Learning is teaching computers to <strong>learn from data</strong> and make <strong>decisions or predictions</strong> without being explicitly programmed for every case. Think of it as teaching a child — you show examples, they learn the pattern.</p>
+    </div>
+
+    <h3>Real-Life Analogy</h3>
+    <p>Imagine you want to teach a child what a cat looks like. You don't write rules like "has 4 legs, pointy ears, meows." Instead, you show them <strong>thousands of cat pictures</strong>. The child's brain finds patterns. That's exactly what ML does — it finds patterns in data.</p>
+
+    <h3>Three Types of Machine Learning</h3>
+
+    <table>
+      <tr><th>Type</th><th>What it does</th><th>Example</th></tr>
+      <tr><td><strong>Supervised Learning</strong></td><td>Learns from labeled data (input → correct output)</td><td>Predicting house prices, spam detection</td></tr>
+      <tr><td><strong>Unsupervised Learning</strong></td><td>Finds hidden patterns in unlabeled data</td><td>Customer segmentation, topic modeling</td></tr>
+      <tr><td><strong>Reinforcement Learning</strong></td><td>Learns by trial & error with rewards</td><td>Chess AI, self-driving cars</td></tr>
+    </table>
+
+    <div class="note">This course focuses on <strong>Supervised Learning</strong> — the most widely used type in industry.</div>
+
+    <h3>The ML Pipeline (Your Recipe for Every Project)</h3>
+    <ol class="steps">
+      <li><strong>Collect Data</strong> — Gather relevant examples with correct labels</li>
+      <li><strong>Explore Data (EDA)</strong> — Understand what's in your data</li>
+      <li><strong>Preprocess Data</strong> — Clean, encode, scale your data</li>
+      <li><strong>Choose Algorithm</strong> — Pick the right model for the problem</li>
+      <li><strong>Train Model</strong> — Feed data to algorithm, it learns</li>
+      <li><strong>Evaluate Model</strong> — How good is it? Metrics!</li>
+      <li><strong>Improve / Tune</strong> — Make it better</li>
+      <li><strong>Deploy</strong> — Use it in the real world</li>
+    </ol>
+
+    <h3>Setting Up Your Python Environment</h3>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">setup.sh</span>
+        <span class="lang-badge">BASH</span>
+      </div>
+      <pre>
+<span class="c"># Install Python libraries for this course</span>
+pip install numpy pandas matplotlib seaborn scikit-learn
+
+<span class="c"># Or create a virtual environment (recommended)</span>
+python -m venv ml_env
+source ml_env/bin/activate        <span class="c"># Mac/Linux</span>
+ml_env\Scripts\activate           <span class="c"># Windows</span>
+pip install numpy pandas matplotlib seaborn scikit-learn</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">test_setup.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># Test that everything is installed correctly</span>
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">import</span> sklearn
+
+<span class="f">print</span>(<span class="s">"NumPy version:"</span>, np.__version__)
+<span class="f">print</span>(<span class="s">"Pandas version:"</span>, pd.__version__)
+<span class="f">print</span>(<span class="s">"Scikit-learn version:"</span>, sklearn.__version__)
+<span class="f">print</span>(<span class="s">"✅ All libraries installed successfully!"</span>)</pre>
+    </div>
+
+  </div>
+</div>
+
+<!-- LESSON 2: Simple Linear Regression -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 1.2</div>
+    <h2 class="lesson-title">Simple Linear Regression (SLR)</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 Core Idea</div>
+      <p>Simple Linear Regression finds the <strong>best straight line</strong> through your data that allows you to predict one output variable (Y) based on one input variable (X). It's the "Hello World" of Machine Learning.</p>
+    </div>
+
+    <h3>Real-Life Example</h3>
+    <div class="example-box">
+      <div class="label">📊 Example: Study Hours vs Exam Score</div>
+      <p>If a student studies <strong>2 hours</strong>, they score <strong>55 marks</strong>. If they study <strong>5 hours</strong>, they score <strong>75 marks</strong>. Can we <strong>predict</strong> the score for studying <strong>8 hours</strong>? That's SLR!</p>
+      <table>
+        <tr><th>Hours Studied (X)</th><th>Exam Score (Y)</th></tr>
+        <tr><td>1</td><td>45</td></tr>
+        <tr><td>2</td><td>55</td></tr>
+        <tr><td>3</td><td>60</td></tr>
+        <tr><td>4</td><td>65</td></tr>
+        <tr><td>5</td><td>75</td></tr>
+        <tr><td>6</td><td>80</td></tr>
+        <tr><td>7</td><td>88</td></tr>
+      </table>
+    </div>
+
+    <h3>The Mathematics</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Line Equation</div>
+      <div class="formula">
+        <strong>y = mx + b</strong> &nbsp;&nbsp; (School math notation)<br><br>
+        <strong>ŷ = β₀ + β₁x</strong> &nbsp;&nbsp; (ML notation)<br><br>
+        Where:<br>
+        &nbsp;&nbsp; ŷ (y-hat) = <em>Predicted value</em> (our guess)<br>
+        &nbsp;&nbsp; β₀ (beta-zero) = <em>Intercept</em> (where line crosses Y-axis)<br>
+        &nbsp;&nbsp; β₁ (beta-one) = <em>Slope</em> (how much Y changes per unit of X)<br>
+        &nbsp;&nbsp; x = <em>Input feature</em>
+      </div>
+    </div>
+
+    <h3>How does ML find β₀ and β₁? — The Cost Function</h3>
+    <p>The algorithm needs to find the <strong>best values</strong> of β₀ and β₁. "Best" means the line that makes the <strong>smallest prediction errors</strong>. We measure this with the <span class="kw">Mean Squared Error (MSE)</span>:</p>
+
+    <div class="math-box">
+      <div class="label">📐 Mean Squared Error (MSE)</div>
+      <div class="formula">
+        <strong>MSE = (1/n) × Σ (yᵢ - ŷᵢ)²</strong><br><br>
+        Where:<br>
+        &nbsp;&nbsp; n = number of data points<br>
+        &nbsp;&nbsp; yᵢ = actual value<br>
+        &nbsp;&nbsp; ŷᵢ = predicted value<br>
+        &nbsp;&nbsp; (yᵢ - ŷᵢ) = error/residual for each point<br><br>
+        We <em>square</em> the errors so positives and negatives don't cancel out.<br>
+        We want to <strong>minimize</strong> this MSE!
+      </div>
+    </div>
+
+    <h3>Ordinary Least Squares (OLS) — Exact Formula</h3>
+    <p>For Simple Linear Regression, we can mathematically derive the exact best values of β₀ and β₁:</p>
+
+    <div class="math-box">
+      <div class="label">📐 OLS Formulas (The Exact Solution)</div>
+      <div class="formula">
+        <strong>β₁ = Σ[(xᵢ - x̄)(yᵢ - ȳ)] / Σ[(xᵢ - x̄)²]</strong><br><br>
+        <strong>β₀ = ȳ - β₁ × x̄</strong><br><br>
+        Where:<br>
+        &nbsp;&nbsp; x̄ = mean of all X values<br>
+        &nbsp;&nbsp; ȳ = mean of all Y values<br>
+        &nbsp;&nbsp; Σ = sum over all data points<br><br>
+        <em>In plain English: β₁ measures how X and Y move together (covariance) divided by how much X varies alone (variance of X).</em>
+      </div>
+    </div>
+
+    <h3>Step-by-Step Manual Calculation</h3>
+    <div class="example-box">
+      <div class="label">✏️ Let's Calculate by Hand</div>
+      <p>Using our study hours data (X = [1,2,3,4,5], Y = [45,55,60,65,75]):</p>
+      <p><strong>Step 1:</strong> x̄ = (1+2+3+4+5)/5 = <strong>3.0</strong></p>
+      <p><strong>Step 2:</strong> ȳ = (45+55+60+65+75)/5 = <strong>60.0</strong></p>
+      <p><strong>Step 3:</strong> Compute numerator = Σ[(xᵢ - 3)(yᵢ - 60)]</p>
+      <table>
+        <tr><th>x</th><th>y</th><th>(x-x̄)</th><th>(y-ȳ)</th><th>product</th><th>(x-x̄)²</th></tr>
+        <tr><td>1</td><td>45</td><td>-2</td><td>-15</td><td>30</td><td>4</td></tr>
+        <tr><td>2</td><td>55</td><td>-1</td><td>-5</td><td>5</td><td>1</td></tr>
+        <tr><td>3</td><td>60</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>4</td><td>65</td><td>1</td><td>5</td><td>5</td><td>1</td></tr>
+        <tr><td>5</td><td>75</td><td>2</td><td>15</td><td>30</td><td>4</td></tr>
+        <tr><td colspan="4"><strong>SUM</strong></td><td><strong>70</strong></td><td><strong>10</strong></td></tr>
+      </table>
+      <p><strong>β₁ = 70 / 10 = 7.0</strong> (every extra hour → +7 marks)</p>
+      <p><strong>β₀ = 60 - 7 × 3 = 60 - 21 = 39</strong></p>
+      <p>✅ <strong>Final equation: ŷ = 39 + 7x</strong></p>
+      <p>Predict for 8 hours: ŷ = 39 + 7(8) = 39 + 56 = <strong>95 marks</strong></p>
+    </div>
+
+    <h3>Evaluation Metrics</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Key Evaluation Metrics</div>
+      <div class="formula">
+        <strong>R² (R-squared / Coefficient of Determination)</strong><br>
+        R² = 1 - [Σ(yᵢ - ŷᵢ)² / Σ(yᵢ - ȳ)²]<br>
+        Range: 0 to 1 &nbsp;|&nbsp; R² = 1 means perfect fit<br><br>
+
+        <strong>MAE (Mean Absolute Error)</strong><br>
+        MAE = (1/n) × Σ |yᵢ - ŷᵢ|<br><br>
+
+        <strong>RMSE (Root Mean Squared Error)</strong><br>
+        RMSE = √[(1/n) × Σ(yᵢ - ŷᵢ)²]<br><br>
+        RMSE is in the same units as Y — more interpretable than MSE.
+      </div>
+    </div>
+
+    <h3>Complete Python Code</h3>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">simple_linear_regression.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# SIMPLE LINEAR REGRESSION — Complete Implementation
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> mean_squared_error, r2_score, mean_absolute_error
+
+<span class="c"># ── STEP 1: Create / Load Data ──────────────────────────────</span>
+<span class="c"># Study Hours vs Exam Scores</span>
+hours = np.array([<span class="num">1,2,3,4,5,6,7,8,9,10</span>], dtype=float)
+scores = np.array([<span class="num">45,55,60,65,75,80,88,92,95,98</span>], dtype=float)
+
+<span class="c"># Reshape for sklearn (needs 2D array for X)</span>
+X = hours.reshape(-<span class="num">1</span>, <span class="num">1</span>)   <span class="c"># shape (10, 1)</span>
+y = scores                     <span class="c"># shape (10,)</span>
+
+<span class="f">print</span>(<span class="s">"=== DATASET ==="</span>)
+<span class="k">for</span> h, s <span class="k">in</span> <span class="f">zip</span>(hours, scores):
+    <span class="f">print</span>(<span class="s">f"  Hours: {h:.0f}  →  Score: {s:.0f}"</span>)
+
+<span class="c"># ── STEP 2: Split into Train / Test ─────────────────────────</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
+)
+<span class="f">print</span>(<span class="s">f"\nTraining samples: {len(X_train)}"</span>)
+<span class="f">print</span>(<span class="s">f"Testing samples:  {len(X_test)}"</span>)
+
+<span class="c"># ── STEP 3: Create and Train the Model ──────────────────────</span>
+model = <span class="n">LinearRegression</span>()
+model.fit(X_train, y_train)    <span class="c"># ← This is where learning happens!</span>
+
+<span class="f">print</span>(<span class="s">f"\n=== MODEL PARAMETERS ==="</span>)
+<span class="f">print</span>(<span class="s">f"Intercept (β₀) = {model.intercept_:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"Slope (β₁)     = {model.coef_[0]:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"Equation: ŷ = {model.intercept_:.2f} + {model.coef_[0]:.2f}x"</span>)
+
+<span class="c"># ── STEP 4: Make Predictions ─────────────────────────────────</span>
+y_pred = model.predict(X_test)
+
+<span class="f">print</span>(<span class="s">"\n=== PREDICTIONS vs ACTUAL ==="</span>)
+<span class="k">for</span> actual, predicted <span class="k">in</span> <span class="f">zip</span>(y_test, y_pred):
+    <span class="f">print</span>(<span class="s">f"  Actual: {actual:.0f}  →  Predicted: {predicted:.2f}  "
+          f"  Error: {abs(actual-predicted):.2f}"</span>)
+
+<span class="c"># ── STEP 5: Evaluate the Model ───────────────────────────────</span>
+mse  = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+mae  = mean_absolute_error(y_test, y_pred)
+r2   = r2_score(y_test, y_pred)
+
+<span class="f">print</span>(<span class="s">"\n=== EVALUATION METRICS ==="</span>)
+<span class="f">print</span>(<span class="s">f"  MSE  = {mse:.4f}  (lower is better)"</span>)
+<span class="f">print</span>(<span class="s">f"  RMSE = {rmse:.4f}  (in same units as score)"</span>)
+<span class="f">print</span>(<span class="s">f"  MAE  = {mae:.4f}  (average absolute error)"</span>)
+<span class="f">print</span>(<span class="s">f"  R²   = {r2:.4f}  (1.0 = perfect, 0 = terrible)"</span>)
+
+<span class="c"># ── STEP 6: Visualize ────────────────────────────────────────</span>
+plt.figure(figsize=(<span class="num">12</span>, <span class="num">5</span>))
+
+<span class="c"># Plot 1: Data + Regression Line</span>
+plt.subplot(<span class="num">1</span>, <span class="num">2</span>, <span class="num">1</span>)
+plt.scatter(X_train, y_train, color=<span class="s">'blue'</span>, label=<span class="s">'Training Data'</span>, s=<span class="num">80</span>)
+plt.scatter(X_test, y_test, color=<span class="s">'red'</span>, label=<span class="s">'Test Data'</span>, s=<span class="num">80</span>)
+x_line = np.linspace(<span class="num">0</span>, <span class="num">11</span>, <span class="num">100</span>).reshape(-<span class="num">1</span>,<span class="num">1</span>)
+plt.plot(x_line, model.predict(x_line), color=<span class="s">'green'</span>, linewidth=<span class="num">2</span>, label=<span class="s">'Regression Line'</span>)
+plt.xlabel(<span class="s">'Study Hours'</span>); plt.ylabel(<span class="s">'Exam Score'</span>)
+plt.title(<span class="s">'Simple Linear Regression'</span>); plt.legend(); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+
+<span class="c"># Plot 2: Residuals</span>
+plt.subplot(<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>)
+residuals = y_test - y_pred
+plt.scatter(y_pred, residuals, color=<span class="s">'purple'</span>, s=<span class="num">80</span>)
+plt.axhline(y=<span class="num">0</span>, color=<span class="s">'red'</span>, linestyle=<span class="s">'--'</span>)
+plt.xlabel(<span class="s">'Predicted Values'</span>); plt.ylabel(<span class="s">'Residuals'</span>)
+plt.title(<span class="s">'Residual Plot (should be random around 0)'</span>); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'slr_plots.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="c"># ── STEP 7: Predict New Value ────────────────────────────────</span>
+new_hours = np.array([[<span class="num">8</span>]])    <span class="c"># 8 hours of study</span>
+prediction = model.predict(new_hours)
+<span class="f">print</span>(<span class="s">f"\n📊 Prediction: 8 hours of study → Score = {prediction[0]:.2f}"</span>)
+
+<span class="c"># ── IMPLEMENTATION FROM SCRATCH (No sklearn) ─────────────────</span>
+<span class="f">print</span>(<span class="s">"\n=== MANUAL OLS IMPLEMENTATION ==="</span>)
+
+<span class="k">def</span> <span class="f">simple_linear_regression_ols</span>(x, y):
+    <span class="s">"""Calculate β₀ and β₁ using OLS formulas"""</span>
+    x_mean = np.mean(x)
+    y_mean = np.mean(y)
+    
+    numerator   = np.sum((x - x_mean) * (y - y_mean))
+    denominator = np.sum((x - x_mean) ** <span class="num">2</span>)
+    
+    beta1 = numerator / denominator      <span class="c"># slope</span>
+    beta0 = y_mean - beta1 * x_mean      <span class="c"># intercept</span>
+    
+    <span class="k">return</span> beta0, beta1
+
+beta0, beta1 = simple_linear_regression_ols(hours, scores)
+<span class="f">print</span>(<span class="s">f"Manual β₀ = {beta0:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"Manual β₁ = {beta1:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"Manual Equation: ŷ = {beta0:.2f} + {beta1:.2f}x"</span>)
+
+y_manual_pred = beta0 + beta1 * hours
+manual_r2 = <span class="num">1</span> - np.sum((scores - y_manual_pred)**<span class="num">2</span>) / np.sum((scores - np.mean(scores))**<span class="num">2</span>)
+<span class="f">print</span>(<span class="s">f"Manual R² = {manual_r2:.4f}"</span>)
+</pre>
+    </div>
+
+    <h3>Understanding the Output</h3>
+    <div class="concept-box">
+      <div class="label">🔑 Key Takeaways</div>
+      <ul>
+        <li><strong>β₀ (Intercept)</strong>: If you study 0 hours, your predicted score. (Base score)</li>
+        <li><strong>β₁ (Slope)</strong>: For every extra hour of study, score increases by β₁ marks</li>
+        <li><strong>R² = 0.95+</strong>: The model explains 95%+ of the variation — excellent!</li>
+        <li><strong>Residual Plot</strong>: Points should scatter randomly around zero (no pattern = good model)</li>
+      </ul>
+    </div>
+
+    <div class="warning">SLR assumes a <strong>LINEAR relationship</strong> between X and Y. If the relationship is curved, use polynomial regression. Always plot your data first!</div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 2 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week2" class="week-header" data-week="W2">
+  <div class="week-num">WEEK 02 · DAYS 8–14</div>
+  <h2>Multiple Linear Regression (MLR)</h2>
+  <p>Extend to multiple features — because real-world predictions use more than one variable.</p>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 2.1</div>
+    <h2 class="lesson-title">Multiple Linear Regression — Theory & Math</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 Core Idea</div>
+      <p>Multiple Linear Regression extends SLR to use <strong>multiple input features</strong> (X₁, X₂, ..., Xₙ) to predict one output. House price prediction needs: size, bedrooms, location, age — not just one feature!</p>
+    </div>
+
+    <h3>Real-Life Example</h3>
+    <div class="example-box">
+      <div class="label">🏠 House Price Prediction</div>
+      <table>
+        <tr><th>Size (sq ft)</th><th>Bedrooms</th><th>Age (years)</th><th>Distance to City (km)</th><th>Price (₹ Lakhs)</th></tr>
+        <tr><td>1000</td><td>2</td><td>5</td><td>10</td><td>45</td></tr>
+        <tr><td>1500</td><td>3</td><td>3</td><td>8</td><td>65</td></tr>
+        <tr><td>2000</td><td>4</td><td>1</td><td>5</td><td>90</td></tr>
+        <tr><td>1200</td><td>2</td><td>10</td><td>15</td><td>38</td></tr>
+        <tr><td>1800</td><td>3</td><td>2</td><td>6</td><td>78</td></tr>
+      </table>
+    </div>
+
+    <h3>The Mathematics</h3>
+
+    <div class="math-box">
+      <div class="label">📐 MLR Equation</div>
+      <div class="formula">
+        <strong>ŷ = β₀ + β₁X₁ + β₂X₂ + β₃X₃ + ... + βₙXₙ</strong><br><br>
+        For house price:<br>
+        <strong>Price = β₀ + β₁(Size) + β₂(Bedrooms) + β₃(Age) + β₄(Distance)</strong><br><br>
+        In Matrix Form (the powerful way):<br>
+        <strong>ŷ = Xβ</strong><br>
+        Where X is the design matrix (n × (p+1)) and β is the coefficient vector ((p+1) × 1)
+      </div>
+    </div>
+
+    <h3>The Design Matrix</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Design Matrix X (with bias column)</div>
+      <div class="formula">
+        X = [1  x₁₁  x₁₂  x₁₃ ]  ← sample 1<br>
+            [1  x₂₁  x₂₂  x₂₃ ]  ← sample 2<br>
+            [1  x₃₁  x₃₂  x₃₃ ]  ← sample 3<br>
+            [...               ]<br><br>
+        The column of 1s represents the intercept term (β₀)<br><br>
+        <strong>OLS Solution: β = (XᵀX)⁻¹ Xᵀy</strong><br>
+        This gives the exact minimum-error coefficients!
+      </div>
+    </div>
+
+    <h3>Assumptions of Linear Regression</h3>
+
+    <table>
+      <tr><th>#</th><th>Assumption</th><th>Why it Matters</th><th>How to Check</th></tr>
+      <tr><td>1</td><td><strong>Linearity</strong></td><td>Relationship must be linear</td><td>Scatter plots</td></tr>
+      <tr><td>2</td><td><strong>Independence</strong></td><td>Samples not correlated with each other</td><td>Durbin-Watson test</td></tr>
+      <tr><td>3</td><td><strong>Homoscedasticity</strong></td><td>Constant variance of errors</td><td>Residual plots</td></tr>
+      <tr><td>4</td><td><strong>Normality of Errors</strong></td><td>Errors follow normal distribution</td><td>Q-Q plot, Shapiro-Wilk</td></tr>
+      <tr><td>5</td><td><strong>No Multicollinearity</strong></td><td>Features not highly correlated with each other</td><td>VIF score</td></tr>
+    </table>
+
+    <h3>Feature Scaling — Why It's Critical</h3>
+
+    <div class="concept-box">
+      <div class="label">⚡ Important</div>
+      <p>When features have different scales (e.g., size in sq ft vs bedrooms = 2,3,4), the algorithm may <strong>favor larger-scale features</strong>. We normalize so all features play fair.</p>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 Normalization Methods</div>
+      <div class="formula">
+        <strong>Min-Max Scaling:</strong> X_scaled = (X - X_min) / (X_max - X_min) → [0, 1]<br><br>
+        <strong>Standardization (Z-score):</strong> X_scaled = (X - μ) / σ → mean=0, std=1<br>
+        Where μ = mean, σ = standard deviation<br><br>
+        Rule of thumb: Use <em>Standardization</em> for algorithms that assume normal distribution (Linear/Logistic Regression, SVM)
+      </div>
+    </div>
+
+    <h3>Complete Python Code — House Price Prediction</h3>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">multiple_linear_regression.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# MULTIPLE LINEAR REGRESSION — House Price Prediction
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">import</span> seaborn <span class="k">as</span> sns
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split
+<span class="k">from</span> sklearn.preprocessing <span class="k">import</span> <span class="n">StandardScaler</span>
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> r2_score, mean_squared_error
+
+<span class="c"># ── STEP 1: Create Dataset ───────────────────────────────────</span>
+np.random.seed(<span class="num">42</span>)
+n = <span class="num">200</span>
+
+data = pd.DataFrame({
+    <span class="s">'size'</span>     : np.random.randint(<span class="num">600</span>, <span class="num">3000</span>, n),
+    <span class="s">'bedrooms'</span> : np.random.randint(<span class="num">1</span>, <span class="num">6</span>, n),
+    <span class="s">'age'</span>      : np.random.randint(<span class="num">0</span>, <span class="num">30</span>, n),
+    <span class="s">'distance'</span> : np.random.randint(<span class="num">1</span>, <span class="num">30</span>, n),
+})
+
+<span class="c"># Create price with a known formula + noise</span>
+data[<span class="s">'price'</span>] = (
+    <span class="num">10</span> +
+    <span class="num">0.04</span>  * data[<span class="s">'size'</span>] +
+    <span class="num">5</span>    * data[<span class="s">'bedrooms'</span>] +
+    -<span class="num">0.8</span> * data[<span class="s">'age'</span>] +
+    -<span class="num">1.2</span> * data[<span class="s">'distance'</span>] +
+    np.random.normal(<span class="num">0</span>, <span class="num">5</span>, n)   <span class="c"># noise</span>
+)
+
+<span class="f">print</span>(<span class="s">"=== DATASET OVERVIEW ==="</span>)
+<span class="f">print</span>(data.head())
+<span class="f">print</span>(<span class="s">f"\nShape: {data.shape}"</span>)
+<span class="f">print</span>(<span class="s">f"\nStatistics:"</span>)
+<span class="f">print</span>(data.describe().round(<span class="num">2</span>))
+
+<span class="c"># ── STEP 2: EDA — Correlation Matrix ────────────────────────</span>
+plt.figure(figsize=(<span class="num">8</span>, <span class="num">6</span>))
+correlation = data.corr()
+sns.heatmap(correlation, annot=<span class="num">True</span>, fmt=<span class="s">'.2f'</span>, cmap=<span class="s">'coolwarm'</span>)
+plt.title(<span class="s">'Feature Correlation Matrix'</span>)
+plt.tight_layout()
+plt.savefig(<span class="s">'correlation_matrix.png'</span>)
+plt.show()
+<span class="f">print</span>(<span class="s">"\n📊 Correlation with price:"</span>)
+<span class="f">print</span>(correlation[<span class="s">'price'</span>].sort_values(ascending=<span class="num">False</span>))
+
+<span class="c"># ── STEP 3: Prepare Features ─────────────────────────────────</span>
+X = data[[<span class="s">'size'</span>, <span class="s">'bedrooms'</span>, <span class="s">'age'</span>, <span class="s">'distance'</span>]]
+y = data[<span class="s">'price'</span>]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
+)
+
+<span class="c"># ── STEP 4: Feature Scaling ──────────────────────────────────</span>
+scaler = <span class="n">StandardScaler</span>()
+X_train_scaled = scaler.fit_transform(X_train)   <span class="c"># fit on TRAIN only!</span>
+X_test_scaled  = scaler.transform(X_test)         <span class="c"># use same scaler on TEST</span>
+
+<span class="f">print</span>(<span class="s">"\n=== AFTER SCALING ==="</span>)
+<span class="f">print</span>(<span class="s">f"Mean of scaled X_train: {X_train_scaled.mean(axis=0).round(4)}"</span>)
+<span class="f">print</span>(<span class="s">f"Std  of scaled X_train: {X_train_scaled.std(axis=0).round(4)}"</span>)
+
+<span class="c"># ── STEP 5: Train Model ──────────────────────────────────────</span>
+model = <span class="n">LinearRegression</span>()
+model.fit(X_train_scaled, y_train)
+
+<span class="f">print</span>(<span class="s">"\n=== MODEL COEFFICIENTS ==="</span>)
+feature_names = [<span class="s">'size'</span>, <span class="s">'bedrooms'</span>, <span class="s">'age'</span>, <span class="s">'distance'</span>]
+<span class="k">for</span> name, coef <span class="k">in</span> <span class="f">zip</span>(feature_names, model.coef_):
+    <span class="f">print</span>(<span class="s">f"  {name:12s}: {coef:+.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"  {'intercept':12s}: {model.intercept_:+.4f}"</span>)
+
+<span class="c"># ── STEP 6: Evaluate ─────────────────────────────────────────</span>
+y_pred_train = model.predict(X_train_scaled)
+y_pred_test  = model.predict(X_test_scaled)
+
+train_r2 = r2_score(y_train, y_pred_train)
+test_r2  = r2_score(y_test, y_pred_test)
+rmse     = np.sqrt(mean_squared_error(y_test, y_pred_test))
+
+<span class="f">print</span>(<span class="s">f"\n=== MODEL PERFORMANCE ==="</span>)
+<span class="f">print</span>(<span class="s">f"  Train R²: {train_r2:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"  Test  R²: {test_r2:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"  Test RMSE: ₹{rmse:.2f} Lakhs"</span>)
+
+<span class="c"># Overfitting check</span>
+<span class="k">if</span> train_r2 - test_r2 > <span class="num">0.1</span>:
+    <span class="f">print</span>(<span class="s">"  ⚠️  Possible overfitting! Train >> Test R²"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"  ✅ Model generalizes well!"</span>)
+
+<span class="c"># ── STEP 7: Visualize Predictions ───────────────────────────</span>
+plt.figure(figsize=(<span class="num">12</span>, <span class="num">4</span>))
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">1</span>)
+plt.scatter(y_test, y_pred_test, alpha=<span class="num">0.6</span>, color=<span class="s">'steelblue'</span>)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], <span class="s">'r--'</span>)
+plt.xlabel(<span class="s">'Actual Price'</span>); plt.ylabel(<span class="s">'Predicted Price'</span>)
+plt.title(<span class="s">'Actual vs Predicted'</span>)
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">2</span>)
+residuals = y_test - y_pred_test
+plt.scatter(y_pred_test, residuals, alpha=<span class="num">0.6</span>, color=<span class="s">'coral'</span>)
+plt.axhline(y=<span class="num">0</span>, color=<span class="s">'red'</span>, linestyle=<span class="s">'--'</span>)
+plt.xlabel(<span class="s">'Predicted'</span>); plt.ylabel(<span class="s">'Residuals'</span>)
+plt.title(<span class="s">'Residual Plot'</span>)
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">3</span>)
+coefficients = pd.Series(model.coef_, index=feature_names)
+coefficients.sort_values().plot(kind=<span class="s">'barh'</span>, color=[<span class="s">'green'</span> <span class="k">if</span> x > <span class="num">0</span> <span class="k">else</span> <span class="s">'red'</span> <span class="k">for</span> x <span class="k">in</span> coefficients.sort_values()])
+plt.title(<span class="s">'Feature Importance (Coefficients)'</span>)
+plt.axvline(x=<span class="num">0</span>, color=<span class="s">'black'</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'mlr_analysis.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="c"># ── STEP 8: Predict for a New House ──────────────────────────</span>
+new_house = pd.DataFrame({
+    <span class="s">'size'</span>    : [<span class="num">1600</span>],
+    <span class="s">'bedrooms'</span>: [<span class="num">3</span>],
+    <span class="s">'age'</span>     : [<span class="num">5</span>],
+    <span class="s">'distance'</span>: [<span class="num">8</span>]
+})
+new_house_scaled = scaler.transform(new_house)
+prediction = model.predict(new_house_scaled)
+<span class="f">print</span>(<span class="s">f"\n🏠 New House Prediction:"</span>)
+<span class="f">print</span>(<span class="s">f"   Size=1600 sqft, 3BHK, 5yr old, 8km from city"</span>)
+<span class="f">print</span>(<span class="s">f"   Predicted Price: ₹{prediction[0]:.2f} Lakhs"</span>)
+
+<span class="c"># ── MATRIX MATH IMPLEMENTATION ───────────────────────────────</span>
+<span class="f">print</span>(<span class="s">"\n=== MATRIX OLS: β = (XᵀX)⁻¹ Xᵀy ==="</span>)
+X_train_np = np.c_[np.ones(len(X_train_scaled)), X_train_scaled]  <span class="c"># add bias col</span>
+beta = np.linalg.inv(X_train_np.T @ X_train_np) @ X_train_np.T @ y_train.values
+<span class="f">print</span>(<span class="s">"Manual β:", beta.round(<span class="num">4</span>))</span>
+</pre>
+    </div>
+
+    <h3>Interpreting Coefficients</h3>
+    <div class="concept-box">
+      <div class="label">🔑 How to Read Coefficients</div>
+      <ul>
+        <li><strong>Positive coefficient</strong> → Feature increases the price</li>
+        <li><strong>Negative coefficient</strong> → Feature decreases the price</li>
+        <li><strong>Larger absolute value</strong> → More impact on price (after scaling)</li>
+        <li>e.g., β_age = -0.8 means: every year older reduces price by ₹0.8 Lakhs</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 3 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week3" class="week-header" data-week="W3">
+  <div class="week-num">WEEK 03 · DAYS 15–21</div>
+  <h2>Logistic Regression — Classification</h2>
+  <p>Predict categories (YES/NO, SPAM/NOT SPAM) — classification, not regression!</p>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 3.1</div>
+    <h2 class="lesson-title">Logistic Regression — Full Theory</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 Core Idea</div>
+      <p>Despite the name, Logistic Regression is a <strong>classification algorithm</strong>. It predicts the <strong>probability</strong> that a sample belongs to a class (0 or 1). It uses the <strong>sigmoid function</strong> to squash any number into the range [0, 1].</p>
+    </div>
+
+    <h3>Why Not Use Linear Regression for Classification?</h3>
+    <div class="warning">Linear regression can predict values like -5, 200, etc. — these make no sense as probabilities! We need output strictly between 0 and 1. That's why we use the sigmoid function.</div>
+
+    <h3>The Sigmoid Function — The Heart of Logistic Regression</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Sigmoid Function</div>
+      <div class="formula">
+        <strong>σ(z) = 1 / (1 + e⁻ᶻ)</strong><br><br>
+        Where z = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ  (the linear combination)<br><br>
+        Properties of Sigmoid:<br>
+        &nbsp;&nbsp; • σ(z) is always between 0 and 1<br>
+        &nbsp;&nbsp; • σ(0) = 0.5<br>
+        &nbsp;&nbsp; • σ(very large z) → 1<br>
+        &nbsp;&nbsp; • σ(very negative z) → 0<br>
+        &nbsp;&nbsp; • Derivative: σ'(z) = σ(z) × (1 - σ(z))
+      </div>
+    </div>
+
+    <div class="example-box">
+      <div class="label">💡 Sigmoid Examples</div>
+      <table>
+        <tr><th>z value</th><th>σ(z)</th><th>Interpretation</th></tr>
+        <tr><td>-10</td><td>0.000045</td><td>Almost certainly Class 0</td></tr>
+        <tr><td>-2</td><td>0.119</td><td>Probably Class 0</td></tr>
+        <tr><td>0</td><td>0.500</td><td>Uncertain (50/50)</td></tr>
+        <tr><td>2</td><td>0.881</td><td>Probably Class 1</td></tr>
+        <tr><td>10</td><td>0.999955</td><td>Almost certainly Class 1</td></tr>
+      </table>
+      <p>Decision Rule: If σ(z) ≥ 0.5 → predict Class 1, else Class 0</p>
+    </div>
+
+    <h3>The Cost Function — Binary Cross-Entropy (Log Loss)</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Log Loss (Binary Cross-Entropy)</div>
+      <div class="formula">
+        <strong>J(β) = -(1/n) Σ [yᵢ log(ŷᵢ) + (1-yᵢ) log(1-ŷᵢ)]</strong><br><br>
+        Where:<br>
+        &nbsp;&nbsp; n = number of samples<br>
+        &nbsp;&nbsp; yᵢ = actual label (0 or 1)<br>
+        &nbsp;&nbsp; ŷᵢ = predicted probability (from sigmoid)<br><br>
+        When y=1: cost = -log(ŷ) → penalizes wrong confident predictions heavily<br>
+        When y=0: cost = -log(1-ŷ) → same on the other side<br><br>
+        <em>We cannot use MSE here — it creates non-convex surface with many local minima for logistic regression. Log Loss is convex — guaranteed to find global minimum!</em>
+      </div>
+    </div>
+
+    <h3>Gradient Descent for Logistic Regression</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Parameter Update Rule</div>
+      <div class="formula">
+        <strong>∂J/∂βⱼ = (1/n) Σ (ŷᵢ - yᵢ) × xᵢⱼ</strong><br><br>
+        <strong>βⱼ := βⱼ - α × ∂J/∂βⱼ</strong><br><br>
+        Beautifully, this has the same form as linear regression's gradient!<br>
+        The sigmoid is already baked into ŷᵢ.
+      </div>
+    </div>
+
+    <h3>Classification Metrics</h3>
+
+    <div class="concept-box">
+      <div class="label">📊 Understanding Confusion Matrix</div>
+      <table>
+        <tr><th></th><th>Predicted: 0</th><th>Predicted: 1</th></tr>
+        <tr><td><strong>Actual: 0</strong></td><td>TN (True Negative) ✅</td><td>FP (False Positive) ❌</td></tr>
+        <tr><td><strong>Actual: 1</strong></td><td>FN (False Negative) ❌</td><td>TP (True Positive) ✅</td></tr>
+      </table>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 Classification Metrics</div>
+      <div class="formula">
+        <strong>Accuracy</strong>    = (TP + TN) / (TP + TN + FP + FN)<br><br>
+        <strong>Precision</strong>   = TP / (TP + FP)  → "Of predicted positives, how many were right?"<br><br>
+        <strong>Recall</strong>      = TP / (TP + FN)  → "Of actual positives, how many did we catch?"<br><br>
+        <strong>F1-Score</strong>    = 2 × (Precision × Recall) / (Precision + Recall)<br><br>
+        <strong>AUC-ROC</strong>     = Area under ROC curve (1 = perfect, 0.5 = random)
+      </div>
+    </div>
+
+    <div class="note">Accuracy is misleading for imbalanced datasets! If 95% of emails are not spam, a model saying "nothing is spam" gets 95% accuracy but is useless. Use F1-Score or AUC-ROC instead.</div>
+
+    <h3>Complete Python Code — Diabetes Prediction</h3>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">logistic_regression.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# LOGISTIC REGRESSION — Diabetes Prediction
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">from</span> sklearn.datasets <span class="k">import</span> load_breast_cancer
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> <span class="n">LogisticRegression</span>
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split
+<span class="k">from</span> sklearn.preprocessing <span class="k">import</span> <span class="n">StandardScaler</span>
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> (
+    classification_report, confusion_matrix,
+    roc_curve, auc, accuracy_score
+)
+<span class="k">import</span> seaborn <span class="k">as</span> sns
+
+<span class="c"># ── STEP 1: Load Dataset ─────────────────────────────────────</span>
+data = load_breast_cancer()
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = data.target
+
+<span class="f">print</span>(<span class="s">"=== BREAST CANCER DATASET ==="</span>)
+<span class="f">print</span>(<span class="s">f"Samples: {X.shape[0]}, Features: {X.shape[1]}"</span>)
+<span class="f">print</span>(<span class="s">f"Classes: {data.target_names}"</span>)
+<span class="f">print</span>(<span class="s">f"Class distribution: {dict(zip(*np.unique(y, return_counts=True)))}"</span>)
+
+<span class="c"># ── STEP 2: Split & Scale ────────────────────────────────────</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>, stratify=y
+)
+<span class="c"># stratify=y ensures both classes are proportionally represented</span>
+
+scaler = <span class="n">StandardScaler</span>()
+X_train_sc = scaler.fit_transform(X_train)
+X_test_sc  = scaler.transform(X_test)
+
+<span class="c"># ── STEP 3: Train Model ──────────────────────────────────────</span>
+model = <span class="n">LogisticRegression</span>(
+    max_iter=<span class="num">1000</span>,       <span class="c"># max gradient descent iterations</span>
+    random_state=<span class="num">42</span>,
+    C=<span class="num">1.0</span>                <span class="c"># inverse of regularization strength</span>
+)
+model.fit(X_train_sc, y_train)
+
+<span class="c"># ── STEP 4: Predict ──────────────────────────────────────────</span>
+y_pred        = model.predict(X_test_sc)
+y_pred_proba  = model.predict_proba(X_test_sc)[:, <span class="num">1</span>]  <span class="c"># probability of class 1</span>
+
+<span class="c"># ── STEP 5: Evaluation ───────────────────────────────────────</span>
+accuracy = accuracy_score(y_test, y_pred)
+<span class="f">print</span>(<span class="s">f"\n=== EVALUATION RESULTS ==="</span>)
+<span class="f">print</span>(<span class="s">f"Accuracy: {accuracy:.4f} ({accuracy*100:.2f}%)"</span>)
+<span class="f">print</span>(<span class="s">f"\nDetailed Report:"</span>)
+<span class="f">print</span>(classification_report(y_test, y_pred, target_names=data.target_names))
+
+<span class="c"># ── STEP 6: Confusion Matrix Plot ────────────────────────────</span>
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(<span class="num">14</span>, <span class="num">4</span>))
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">1</span>)
+sns.heatmap(cm, annot=<span class="num">True</span>, fmt=<span class="s">'d'</span>, cmap=<span class="s">'Blues'</span>,
+            xticklabels=data.target_names, yticklabels=data.target_names)
+plt.title(<span class="s">'Confusion Matrix'</span>)
+plt.ylabel(<span class="s">'Actual'</span>); plt.xlabel(<span class="s">'Predicted'</span>)
+
+<span class="c"># ── STEP 7: ROC Curve ────────────────────────────────────────</span>
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
+roc_auc = auc(fpr, tpr)
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">2</span>)
+plt.plot(fpr, tpr, color=<span class="s">'darkorange'</span>, lw=<span class="num">2</span>, label=<span class="s">f'AUC = {roc_auc:.3f}'</span>)
+plt.plot([<span class="num">0</span>, <span class="num">1</span>], [<span class="num">0</span>, <span class="num">1</span>], color=<span class="s">'navy'</span>, lw=<span class="num">2</span>, linestyle=<span class="s">'--'</span>, label=<span class="s">'Random'</span>)
+plt.xlabel(<span class="s">'False Positive Rate'</span>); plt.ylabel(<span class="s">'True Positive Rate'</span>)
+plt.title(<span class="s">'ROC Curve'</span>); plt.legend()
+
+<span class="c"># ── STEP 8: Feature Importance ───────────────────────────────</span>
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">3</span>)
+top_n = <span class="num">10</span>
+coef = pd.Series(model.coef_[<span class="num">0</span>], index=X.columns)
+top_coef = coef.abs().nlargest(top_n).index
+coef[top_coef].sort_values().plot(kind=<span class="s">'barh'</span>)
+plt.title(<span class="s">f'Top {top_n} Features by Coefficient'</span>)
+plt.axvline(x=<span class="num">0</span>, color=<span class="s">'black'</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'logistic_regression.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="c"># ── STEP 9: Manual Sigmoid & Prediction ─────────────────────</span>
+<span class="k">def</span> <span class="f">sigmoid</span>(z):
+    <span class="k">return</span> <span class="num">1</span> / (<span class="num">1</span> + np.exp(-z))
+
+<span class="c"># Show first test sample prediction manually</span>
+sample = X_test_sc[<span class="num">0</span>]
+z = model.intercept_[<span class="num">0</span>] + np.dot(model.coef_[<span class="num">0</span>], sample)
+prob = sigmoid(z)
+<span class="f">print</span>(<span class="s">f"\n=== MANUAL PREDICTION (Sample 0) ==="</span>)
+<span class="f">print</span>(<span class="s">f"z (linear combination) = {z:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"σ(z) = {prob:.4f}  →  Predicted Class: {'Malignant' if prob >= 0.5 else 'Benign'}"</span>)
+<span class="f">print</span>(<span class="s">f"Actual Class: {data.target_names[y_test[0]]}"</span>)
+<span class="f">print</span>(<span class="s">f"\nAUC-ROC = {roc_auc:.4f}  (0.5=random, 1.0=perfect)"</span>)
+
+<span class="c"># ── FROM SCRATCH IMPLEMENTATION ──────────────────────────────</span>
+<span class="k">class</span> <span class="n">LogisticRegressionScratch</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(self, lr=<span class="num">0.01</span>, iterations=<span class="num">1000</span>):
+        self.lr = lr
+        self.iterations = iterations
+        self.losses = []
+    
+    <span class="k">def</span> <span class="f">sigmoid</span>(self, z):
+        <span class="k">return</span> <span class="num">1</span> / (<span class="num">1</span> + np.exp(-np.clip(z, -<span class="num">500</span>, <span class="num">500</span>)))
+    
+    <span class="k">def</span> <span class="f">fit</span>(self, X, y):
+        n, p = X.shape
+        self.beta = np.zeros(p + <span class="num">1</span>)  <span class="c"># init to zeros</span>
+        X_b = np.c_[np.ones(n), X]     <span class="c"># add bias column</span>
+        
+        <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(self.iterations):
+            z = X_b @ self.beta
+            y_hat = self.sigmoid(z)
+            
+            <span class="c"># Log loss</span>
+            loss = -np.mean(y * np.log(y_hat + <span class="num">1e-15</span>) +
+                           (<span class="num">1</span>-y) * np.log(<span class="num">1</span>-y_hat + <span class="num">1e-15</span>))
+            self.losses.append(loss)
+            
+            <span class="c"># Gradient</span>
+            gradient = (X_b.T @ (y_hat - y)) / n
+            self.beta -= self.lr * gradient
+        
+        <span class="k">return</span> self
+    
+    <span class="k">def</span> <span class="f">predict_proba</span>(self, X):
+        X_b = np.c_[np.ones(len(X)), X]
+        <span class="k">return</span> self.sigmoid(X_b @ self.beta)
+    
+    <span class="k">def</span> <span class="f">predict</span>(self, X, threshold=<span class="num">0.5</span>):
+        <span class="k">return</span> (self.predict_proba(X) >= threshold).astype(int)
+
+<span class="c"># Test scratch implementation</span>
+scratch_model = <span class="n">LogisticRegressionScratch</span>(lr=<span class="num">0.1</span>, iterations=<span class="num">500</span>)
+scratch_model.fit(X_train_sc, y_train)
+scratch_preds = scratch_model.predict(X_test_sc)
+scratch_acc = accuracy_score(y_test, scratch_preds)
+<span class="f">print</span>(<span class="s">f"\n=== SCRATCH IMPLEMENTATION ACCURACY: {scratch_acc:.4f} ==="</span>)
+
+<span class="c"># Plot training loss</span>
+plt.figure(figsize=(<span class="num">8</span>, <span class="num">4</span>))
+plt.plot(scratch_model.losses)
+plt.xlabel(<span class="s">'Iteration'</span>); plt.ylabel(<span class="s">'Log Loss'</span>)
+plt.title(<span class="s">'Training Loss Curve (Loss should decrease)'</span>)
+plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+plt.savefig(<span class="s">'loss_curve.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+</pre>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 4 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week4" class="week-header" data-week="W4">
+  <div class="week-num">WEEK 04 · DAYS 22–28</div>
+  <h2>Optimization Techniques</h2>
+  <p>The engine behind all ML — how models actually learn from data.</p>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 4.1</div>
+    <h2 class="lesson-title">Gradient Descent — The Universal Optimizer</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 Core Analogy</div>
+      <p>Imagine you're blindfolded on a hilly landscape and want to reach the <strong>lowest valley</strong>. You can only feel the slope under your feet. So you take small steps <strong>downhill</strong> each time. That's Gradient Descent! It minimizes the cost function by following the steepest descent.</p>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 Gradient Descent Update Rule</div>
+      <div class="formula">
+        <strong>θ := θ - α × ∇J(θ)</strong><br><br>
+        Where:<br>
+        &nbsp;&nbsp; θ = parameters to optimize (β₀, β₁, ...)<br>
+        &nbsp;&nbsp; α = learning rate (step size)<br>
+        &nbsp;&nbsp; ∇J(θ) = gradient (slope of cost function w.r.t. θ)<br>
+        &nbsp;&nbsp; := means "update/assign"<br><br>
+        For Linear Regression:<br>
+        &nbsp;&nbsp; ∂J/∂β₀ = (1/n) Σ (ŷᵢ - yᵢ)<br>
+        &nbsp;&nbsp; ∂J/∂β₁ = (1/n) Σ (ŷᵢ - yᵢ) × xᵢ<br>
+        &nbsp;&nbsp; → β₀ := β₀ - α × ∂J/∂β₀<br>
+        &nbsp;&nbsp; → β₁ := β₁ - α × ∂J/∂β₁
+      </div>
+    </div>
+
+    <h3>The Learning Rate α — Critical Hyperparameter</h3>
+
+    <table>
+      <tr><th>Learning Rate</th><th>Problem</th><th>Solution</th></tr>
+      <tr><td>Too LARGE (α = 1.0)</td><td>Overshoots minimum, diverges (bounces around or gets worse)</td><td>Decrease α</td></tr>
+      <tr><td>Too SMALL (α = 0.0001)</td><td>Convergence is very slow (takes forever)</td><td>Increase α</td></tr>
+      <tr><td>Just RIGHT (α = 0.01)</td><td>—</td><td>Converges smoothly to minimum ✅</td></tr>
+    </table>
+
+    <h3>Three Variants of Gradient Descent</h3>
+
+    <div class="algo-card">
+      <div class="card">
+        <h4>1. Batch Gradient Descent (BGD)</h4>
+        <ul>
+          <li>Uses ALL training data to compute gradient</li>
+          <li>Stable, guaranteed convergence</li>
+          <li>Very slow for large datasets</li>
+          <li>One update per epoch</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>2. Stochastic Gradient Descent (SGD)</h4>
+        <ul>
+          <li>Uses ONE random sample at a time</li>
+          <li>Very fast updates, noisy convergence</li>
+          <li>Can escape local minima</li>
+          <li>n updates per epoch</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>3. Mini-Batch Gradient Descent</h4>
+        <ul>
+          <li>Uses small batch (e.g., 32–256 samples)</li>
+          <li>Best of both worlds — vectorized + noisy</li>
+          <li>Industry standard!</li>
+          <li>n/batch_size updates per epoch</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>When to Use Which?</h4>
+        <ul>
+          <li><strong>BGD</strong>: Small datasets, exact solutions needed</li>
+          <li><strong>SGD</strong>: Online learning, large datasets</li>
+          <li><strong>Mini-Batch</strong>: Almost everything in practice 🏆</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Advanced Optimizers</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Momentum</div>
+      <div class="formula">
+        <strong>vₜ = β·vₜ₋₁ + (1-β)·∇J(θ)</strong><br>
+        <strong>θ := θ - α·vₜ</strong><br><br>
+        Momentum accumulates velocity in the direction of gradient.<br>
+        β ≈ 0.9 is common. Like a ball rolling downhill — gains speed!
+      </div>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 RMSProp</div>
+      <div class="formula">
+        <strong>sₜ = β·sₜ₋₁ + (1-β)·(∇J)²</strong><br>
+        <strong>θ := θ - α·∇J / √(sₜ + ε)</strong><br><br>
+        Adapts learning rate per parameter. Divides by RMS of recent gradients.<br>
+        Good for non-stationary problems (RNN, online learning).
+      </div>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 Adam (Adaptive Moment Estimation) — Most Popular</div>
+      <div class="formula">
+        <strong>mₜ = β₁·mₜ₋₁ + (1-β₁)·∇J</strong>    ← 1st moment (mean of gradients)<br>
+        <strong>vₜ = β₂·vₜ₋₁ + (1-β₂)·(∇J)²</strong>  ← 2nd moment (variance of gradients)<br><br>
+        Bias correction:<br>
+        <strong>m̂ₜ = mₜ/(1-β₁ᵗ)</strong><br>
+        <strong>v̂ₜ = vₜ/(1-β₂ᵗ)</strong><br><br>
+        Update:<br>
+        <strong>θ := θ - α × m̂ₜ / (√v̂ₜ + ε)</strong><br><br>
+        Defaults: β₁=0.9, β₂=0.999, ε=1e-8, α=0.001<br>
+        Adam = Momentum + RMSProp combined. Works great out of the box! 🏆
+      </div>
+    </div>
+
+    <h3>Complete Python Code — All Optimizers</h3>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">optimization_techniques.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# OPTIMIZATION TECHNIQUES — Full Implementation
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+
+<span class="c"># Create simple regression dataset</span>
+np.random.seed(<span class="num">42</span>)
+X = <span class="num">2</span> * np.random.randn(<span class="num">100</span>, <span class="num">1</span>)
+y = <span class="num">4</span> + <span class="num">3</span> * X + np.random.randn(<span class="num">100</span>, <span class="num">1</span>)
+X_b = np.c_[np.ones((<span class="num">100</span>, <span class="num">1</span>)), X]
+
+<span class="c"># ── 1. BATCH GRADIENT DESCENT ────────────────────────────────</span>
+<span class="k">def</span> <span class="f">batch_gd</span>(X_b, y, lr=<span class="num">0.01</span>, epochs=<span class="num">100</span>):
+    n = len(y)
+    theta = np.random.randn(<span class="num">2</span>, <span class="num">1</span>)     <span class="c"># random init</span>
+    losses = []
+    
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(epochs):
+        y_pred = X_b @ theta
+        error  = y_pred - y
+        mse    = np.mean(error ** <span class="num">2</span>)
+        losses.append(mse)
+        
+        gradient = (<span class="num">2</span>/n) * X_b.T @ error   <span class="c"># ALL data used</span>
+        theta -= lr * gradient
+    
+    <span class="k">return</span> theta, losses
+
+<span class="c"># ── 2. STOCHASTIC GRADIENT DESCENT ───────────────────────────</span>
+<span class="k">def</span> <span class="f">stochastic_gd</span>(X_b, y, lr=<span class="num">0.01</span>, epochs=<span class="num">100</span>):
+    n = len(y)
+    theta = np.random.randn(<span class="num">2</span>, <span class="num">1</span>)
+    losses = []
+    
+    <span class="k">for</span> epoch <span class="k">in</span> <span class="f">range</span>(epochs):
+        epoch_loss = <span class="num">0</span>
+        indices = np.random.permutation(n)   <span class="c"># shuffle each epoch</span>
+        
+        <span class="k">for</span> i <span class="k">in</span> indices:
+            xi = X_b[i:i+<span class="num">1</span>]             <span class="c"># ONE sample</span>
+            yi = y[i:i+<span class="num">1</span>]
+            y_pred = xi @ theta
+            error  = y_pred - yi
+            epoch_loss += float(error ** <span class="num">2</span>)
+            gradient = <span class="num">2</span> * xi.T * error
+            theta -= lr * gradient
+        
+        losses.append(epoch_loss / n)
+    <span class="k">return</span> theta, losses
+
+<span class="c"># ── 3. MINI-BATCH GRADIENT DESCENT ───────────────────────────</span>
+<span class="k">def</span> <span class="f">minibatch_gd</span>(X_b, y, lr=<span class="num">0.01</span>, epochs=<span class="num">100</span>, batch_size=<span class="num">16</span>):
+    n = len(y)
+    theta = np.random.randn(<span class="num">2</span>, <span class="num">1</span>)
+    losses = []
+    
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(epochs):
+        indices = np.random.permutation(n)
+        X_shuf = X_b[indices]; y_shuf = y[indices]
+        epoch_loss = <span class="num">0</span>
+        
+        <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="num">0</span>, n, batch_size):
+            Xb = X_shuf[i:i+batch_size]
+            yb = y_shuf[i:i+batch_size]
+            y_pred = Xb @ theta
+            error  = y_pred - yb
+            epoch_loss += np.mean(error ** <span class="num">2</span>)
+            gradient = (<span class="num">2</span>/len(yb)) * Xb.T @ error
+            theta -= lr * gradient
+        
+        losses.append(epoch_loss / (n // batch_size))
+    <span class="k">return</span> theta, losses
+
+<span class="c"># ── 4. ADAM OPTIMIZER ────────────────────────────────────────</span>
+<span class="k">def</span> <span class="f">adam_optimizer</span>(X_b, y, lr=<span class="num">0.01</span>, epochs=<span class="num">100</span>,
+                    beta1=<span class="num">0.9</span>, beta2=<span class="num">0.999</span>, epsilon=<span class="num">1e-8</span>):
+    n = len(y)
+    theta = np.random.randn(<span class="num">2</span>, <span class="num">1</span>)
+    m = np.zeros_like(theta)      <span class="c"># 1st moment</span>
+    v = np.zeros_like(theta)      <span class="c"># 2nd moment</span>
+    losses = []
+    t = <span class="num">0</span>
+    
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(epochs):
+        t += <span class="num">1</span>
+        y_pred = X_b @ theta
+        error  = y_pred - y
+        losses.append(float(np.mean(error ** <span class="num">2</span>)))
+        
+        gradient = (<span class="num">2</span>/n) * X_b.T @ error
+        
+        m = beta1 * m + (<span class="num">1</span> - beta1) * gradient       <span class="c"># 1st moment</span>
+        v = beta2 * v + (<span class="num">1</span> - beta2) * gradient**<span class="num">2</span>    <span class="c"># 2nd moment</span>
+        
+        m_hat = m / (<span class="num">1</span> - beta1**t)    <span class="c"># bias correction</span>
+        v_hat = v / (<span class="num">1</span> - beta2**t)
+        
+        theta -= lr * m_hat / (np.sqrt(v_hat) + epsilon)
+    
+    <span class="k">return</span> theta, losses
+
+<span class="c"># ── 5. MOMENTUM ──────────────────────────────────────────────</span>
+<span class="k">def</span> <span class="f">momentum_gd</span>(X_b, y, lr=<span class="num">0.01</span>, epochs=<span class="num">100</span>, beta=<span class="num">0.9</span>):
+    n = len(y)
+    theta = np.random.randn(<span class="num">2</span>, <span class="num">1</span>)
+    velocity = np.zeros_like(theta)
+    losses = []
+    
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(epochs):
+        y_pred = X_b @ theta
+        error  = y_pred - y
+        losses.append(float(np.mean(error ** <span class="num">2</span>)))
+        gradient = (<span class="num">2</span>/n) * X_b.T @ error
+        velocity = beta * velocity + (<span class="num">1</span> - beta) * gradient
+        theta -= lr * velocity
+    
+    <span class="k">return</span> theta, losses
+
+<span class="c"># ── RUN ALL OPTIMIZERS ────────────────────────────────────────</span>
+np.random.seed(<span class="num">0</span>)
+epochs = <span class="num">200</span>
+lr = <span class="num">0.05</span>
+
+theta_bgd,  loss_bgd  = batch_gd(X_b, y, lr=lr, epochs=epochs)
+theta_sgd,  loss_sgd  = stochastic_gd(X_b, y, lr=<span class="num">0.01</span>, epochs=epochs)
+theta_mgd,  loss_mgd  = minibatch_gd(X_b, y, lr=lr, epochs=epochs)
+theta_adam, loss_adam = adam_optimizer(X_b, y, lr=<span class="num">0.1</span>, epochs=epochs)
+theta_mom,  loss_mom  = momentum_gd(X_b, y, lr=lr, epochs=epochs)
+
+<span class="f">print</span>(<span class="s">"True parameters: β₀=4, β₁=3"</span>)
+<span class="f">print</span>(<span class="s">f"BGD:  β₀={theta_bgd[0,0]:.4f}, β₁={theta_bgd[1,0]:.4f}"</span>)
+<span class="f">print</span>(<span class="s">f"ADAM: β₀={theta_adam[0,0]:.4f}, β₁={theta_adam[1,0]:.4f}"</span>)
+
+<span class="c"># ── COMPARE CONVERGENCE PLOT ──────────────────────────────────</span>
+plt.figure(figsize=(<span class="num">12</span>, <span class="num">5</span>))
+plt.subplot(<span class="num">1</span>, <span class="num">2</span>, <span class="num">1</span>)
+plt.plot(loss_bgd,  label=<span class="s">'Batch GD'</span>,    linewidth=<span class="num">2</span>)
+plt.plot(loss_sgd,  label=<span class="s">'SGD'</span>,          linewidth=<span class="num">2</span>, alpha=<span class="num">0.7</span>)
+plt.plot(loss_mgd,  label=<span class="s">'Mini-Batch'</span>,  linewidth=<span class="num">2</span>)
+plt.plot(loss_adam, label=<span class="s">'Adam'</span>,         linewidth=<span class="num">2</span>)
+plt.plot(loss_mom,  label=<span class="s">'Momentum'</span>,    linewidth=<span class="num">2</span>)
+plt.xlabel(<span class="s">'Epoch'</span>); plt.ylabel(<span class="s">'MSE Loss'</span>)
+plt.title(<span class="s">'Optimizer Comparison'</span>); plt.legend(); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+plt.yscale(<span class="s">'log'</span>)
+
+plt.subplot(<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>)
+plt.plot(loss_bgd[-<span class="num">50</span>:],  label=<span class="s">'Batch GD'</span>)
+plt.plot(loss_adam[-<span class="num">50</span>:], label=<span class="s">'Adam'</span>)
+plt.plot(loss_mom[-<span class="num">50</span>:],  label=<span class="s">'Momentum'</span>)
+plt.xlabel(<span class="s">'Last 50 Epochs'</span>); plt.ylabel(<span class="s">'MSE Loss'</span>)
+plt.title(<span class="s">'Final Convergence Zoom'</span>); plt.legend(); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'optimizer_comparison.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+</pre>
+    </div>
+
+    <h3>Optimizer Comparison Summary</h3>
+    <table>
+      <tr><th>Optimizer</th><th>Speed</th><th>Stability</th><th>Memory</th><th>Best For</th></tr>
+      <tr><td><strong>BGD</strong></td><td>Slow</td><td>Very Stable</td><td>Low</td><td>Small datasets</td></tr>
+      <tr><td><strong>SGD</strong></td><td>Fastest</td><td>Noisy</td><td>Lowest</td><td>Online learning</td></tr>
+      <tr><td><strong>Mini-Batch</strong></td><td>Fast</td><td>Good</td><td>Low</td><td>Standard practice</td></tr>
+      <tr><td><strong>Momentum</strong></td><td>Fast</td><td>Good</td><td>Low</td><td>Non-convex losses</td></tr>
+      <tr><td><strong>Adam</strong></td><td>Fast</td><td>Excellent</td><td>Medium</td><td>🏆 Default choice</td></tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 5 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week5" class="week-header" data-week="W5">
+  <div class="week-num">WEEK 05 · DAYS 29–35</div>
+  <h2>Regularization — Preventing Overfitting</h2>
+  <p>Ridge, Lasso, and ElasticNet — keep your model from "memorizing" the training data.</p>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 5.1</div>
+    <h2 class="lesson-title">Overfitting vs Underfitting & Regularization</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 The Core Problem</div>
+      <p><strong>Overfitting</strong>: Model memorizes training data (high train accuracy, low test accuracy — like a student who memorizes answers but can't solve new problems). <strong>Underfitting</strong>: Model is too simple to capture the pattern. Regularization is the cure for overfitting.</p>
+    </div>
+
+    <h3>How Regularization Works</h3>
+    <p>Regularization adds a <strong>penalty term</strong> to the cost function that discourages large coefficients. Large coefficients = complex model = overfitting.</p>
+
+    <div class="math-box">
+      <div class="label">📐 Ridge Regression (L2 Regularization)</div>
+      <div class="formula">
+        <strong>J(β) = MSE + λ × Σβⱼ²</strong><br><br>
+        = Original Loss + λ × (sum of squared coefficients)<br><br>
+        Effect: Shrinks coefficients toward zero (but rarely to exactly zero)<br>
+        λ (lambda) = regularization strength (hyperparameter)<br>
+        &nbsp;&nbsp; λ = 0: No regularization (standard linear regression)<br>
+        &nbsp;&nbsp; λ → ∞: All coefficients → 0<br><br>
+        Closed-form solution: <strong>β = (XᵀX + λI)⁻¹ Xᵀy</strong>
+      </div>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 Lasso Regression (L1 Regularization)</div>
+      <div class="formula">
+        <strong>J(β) = MSE + λ × Σ|βⱼ|</strong><br><br>
+        = Original Loss + λ × (sum of absolute coefficients)<br><br>
+        Effect: Shrinks some coefficients to <em>exactly</em> zero → automatic feature selection!<br>
+        Creates sparse models (fewer features used)<br><br>
+        No closed-form solution — requires gradient descent or coordinate descent
+      </div>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 ElasticNet (L1 + L2 Combined)</div>
+      <div class="formula">
+        <strong>J(β) = MSE + λ₁ × Σ|βⱼ| + λ₂ × Σβⱼ²</strong><br><br>
+        Or equivalently:<br>
+        <strong>J(β) = MSE + λ [α × Σ|βⱼ| + (1-α)/2 × Σβⱼ²]</strong><br><br>
+        Where α (l1_ratio) controls the mix: α=1 → Lasso, α=0 → Ridge<br>
+        Best when you have many correlated features
+      </div>
+    </div>
+
+    <h3>Ridge vs Lasso — When to Use Which?</h3>
+    <table>
+      <tr><th>Scenario</th><th>Use</th><th>Reason</th></tr>
+      <tr><td>All features are useful</td><td>Ridge</td><td>Keeps all features, just shrinks them</td></tr>
+      <tr><td>Many irrelevant features</td><td>Lasso</td><td>Automatically eliminates irrelevant features</td></tr>
+      <tr><td>Correlated features</td><td>Ridge or ElasticNet</td><td>Lasso picks one and ignores others</td></tr>
+      <tr><td>Not sure</td><td>ElasticNet</td><td>Best of both worlds</td></tr>
+    </table>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">regularization.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# REGULARIZATION: Ridge, Lasso, ElasticNet
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> Ridge, Lasso, <span class="n">ElasticNet</span>, <span class="n">LinearRegression</span>
+<span class="k">from</span> sklearn.preprocessing <span class="k">import</span> <span class="n">StandardScaler</span>
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split, cross_val_score
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> r2_score
+<span class="k">from</span> sklearn.datasets <span class="k">import</span> make_regression
+
+<span class="c"># ── Create Dataset with Noise ─────────────────────────────────</span>
+X, y, true_coef = make_regression(
+    n_samples=<span class="num">200</span>, n_features=<span class="num">30</span>,
+    n_informative=<span class="num">10</span>,          <span class="c"># only 10 of 30 features matter</span>
+    noise=<span class="num">50</span>,
+    coef=<span class="num">True</span>,
+    random_state=<span class="num">42</span>
+)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)
+
+scaler = <span class="n">StandardScaler</span>()
+X_train_sc = scaler.fit_transform(X_train)
+X_test_sc  = scaler.transform(X_test)
+
+<span class="c"># ── Train 4 Models ────────────────────────────────────────────</span>
+models = {
+    <span class="s">'Linear'</span>    : <span class="n">LinearRegression</span>(),
+    <span class="s">'Ridge'</span>     : Ridge(alpha=<span class="num">10.0</span>),
+    <span class="s">'Lasso'</span>     : Lasso(alpha=<span class="num">1.0</span>),
+    <span class="s">'ElasticNet'</span>: <span class="n">ElasticNet</span>(alpha=<span class="num">1.0</span>, l1_ratio=<span class="num">0.5</span>)
+}
+
+results = {}
+<span class="k">for</span> name, mdl <span class="k">in</span> models.items():
+    mdl.fit(X_train_sc, y_train)
+    train_r2 = r2_score(y_train, mdl.predict(X_train_sc))
+    test_r2  = r2_score(y_test,  mdl.predict(X_test_sc))
+    n_zero   = np.sum(np.abs(mdl.coef_) < <span class="num">1e-4</span>) <span class="c"># features zeroed out</span>
+    results[name] = {
+        <span class="s">'Train R²'</span>: train_r2, <span class="s">'Test R²'</span>: test_r2,
+        <span class="s">'Zero Coefs'</span>: n_zero
+    }
+
+results_df = pd.DataFrame(results).T
+<span class="f">print</span>(<span class="s">"=== MODEL COMPARISON ==="</span>)
+<span class="f">print</span>(results_df.round(<span class="num">4</span>))
+
+<span class="c"># ── Alpha Tuning for Ridge ────────────────────────────────────</span>
+alphas = [<span class="num">0.001</span>, <span class="num">0.01</span>, <span class="num">0.1</span>, <span class="num">1</span>, <span class="num">10</span>, <span class="num">100</span>, <span class="num">1000</span>]
+ridge_coefs = []
+ridge_train_scores, ridge_test_scores = [], []
+
+<span class="k">for</span> alpha <span class="k">in</span> alphas:
+    ridge = Ridge(alpha=alpha).fit(X_train_sc, y_train)
+    ridge_coefs.append(ridge.coef_)
+    ridge_train_scores.append(r2_score(y_train, ridge.predict(X_train_sc)))
+    ridge_test_scores.append(r2_score(y_test, ridge.predict(X_test_sc)))
+
+<span class="c"># ── Plot: Coefficient Paths ───────────────────────────────────</span>
+plt.figure(figsize=(<span class="num">15</span>, <span class="num">4</span>))
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">1</span>)
+plt.plot(np.log10(alphas), ridge_coefs)
+plt.xlabel(<span class="s">'log₁₀(λ)'</span>); plt.ylabel(<span class="s">'Coefficient Value'</span>)
+plt.title(<span class="s">'Ridge: Coefficient Paths'</span>); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">2</span>)
+lasso_coefs = []
+<span class="k">for</span> alpha <span class="k">in</span> alphas:
+    lasso = Lasso(alpha=alpha, max_iter=<span class="num">5000</span>).fit(X_train_sc, y_train)
+    lasso_coefs.append(lasso.coef_)
+plt.plot(np.log10(alphas), lasso_coefs)
+plt.xlabel(<span class="s">'log₁₀(λ)'</span>); plt.ylabel(<span class="s">'Coefficient Value'</span>)
+plt.title(<span class="s">'Lasso: Coefficient Paths (→0 quickly!)'</span>); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+
+plt.subplot(<span class="num">1</span>, <span class="num">3</span>, <span class="num">3</span>)
+plt.plot(np.log10(alphas), ridge_train_scores, <span class="s">'b-o'</span>, label=<span class="s">'Ridge Train'</span>)
+plt.plot(np.log10(alphas), ridge_test_scores, <span class="s">'b--o'</span>, label=<span class="s">'Ridge Test'</span>)
+plt.xlabel(<span class="s">'log₁₀(λ)'</span>); plt.ylabel(<span class="s">'R²'</span>)
+plt.title(<span class="s">'Ridge: Train vs Test R²'</span>)
+plt.legend(); plt.grid(<span class="num">True</span>, alpha=<span class="num">0.3</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'regularization.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="c"># ── Cross-Validation to Find Best Alpha ──────────────────────</span>
+<span class="f">print</span>(<span class="s">"\n=== CROSS-VALIDATION FOR BEST ALPHA ==="</span>)
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> RidgeCV, LassoCV
+
+ridge_cv = RidgeCV(alphas=alphas, cv=<span class="num">5</span>)
+ridge_cv.fit(X_train_sc, y_train)
+<span class="f">print</span>(<span class="s">f"Ridge best alpha: {ridge_cv.alpha_}"</span>)
+
+lasso_cv = LassoCV(cv=<span class="num">5</span>, max_iter=<span class="num">5000</span>)
+lasso_cv.fit(X_train_sc, y_train)
+<span class="f">print</span>(<span class="s">f"Lasso best alpha: {lasso_cv.alpha_:.6f}"</span>)
+<span class="f">print</span>(<span class="s">f"Lasso features used: {np.sum(lasso_cv.coef_ != 0)} / {X.shape[1]}"</span>)
+</pre>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 6 & 7 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week6" class="week-header" data-week="W6">
+  <div class="week-num">WEEK 06–07 · DAYS 36–49</div>
+  <h2>Support Vector Machines (SVM)</h2>
+  <p>One of the most powerful algorithms — finds the optimal separating hyperplane with maximum margin.</p>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">LESSON 6.1</div>
+    <h2 class="lesson-title">SVM — Theory, Mathematics & All Variants</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="concept-box">
+      <div class="label">🎯 Core Intuition</div>
+      <p>SVM finds the <strong>best separating line (hyperplane)</strong> between two classes — not just any line, but the one that <strong>maximizes the gap (margin)</strong> between the two classes. Think of it as finding the widest road between two cities on a map.</p>
+    </div>
+
+    <h3>Key Terminology</h3>
+    <ul>
+      <li><strong>Hyperplane</strong>: In 2D — a line. In 3D — a plane. In n-D — hyperplane. It separates classes.</li>
+      <li><strong>Margin</strong>: The total distance from the hyperplane to the closest points of each class.</li>
+      <li><strong>Support Vectors</strong>: The data points closest to the hyperplane. These define the margin. If you remove them, the hyperplane changes!</li>
+      <li><strong>Maximum Margin Classifier</strong>: SVM finds the hyperplane with the widest margin.</li>
+    </ul>
+
+    <div class="math-box">
+      <div class="label">📐 SVM Mathematical Foundation</div>
+      <div class="formula">
+        Hyperplane equation: <strong>w·x + b = 0</strong><br>
+        Where w = weight vector (perpendicular to hyperplane), b = bias<br><br>
+        Classification rule:<br>
+        &nbsp;&nbsp; If w·xᵢ + b ≥ +1 → predict class +1<br>
+        &nbsp;&nbsp; If w·xᵢ + b ≤ -1 → predict class -1<br><br>
+        Margin width = <strong>2 / ||w||</strong><br>
+        (||w|| = magnitude of weight vector)<br><br>
+        Maximizing margin = minimizing ||w||<br><br>
+        <strong>Optimization Problem (Hard Margin):</strong><br>
+        Minimize: (1/2)||w||²<br>
+        Subject to: yᵢ(w·xᵢ + b) ≥ 1 for all i
+      </div>
+    </div>
+
+    <h3>Soft Margin SVM — Handling Non-Separable Data</h3>
+    <p>Real data is almost never perfectly separable. <strong>Soft Margin SVM</strong> allows some misclassifications but penalizes them.</p>
+
+    <div class="math-box">
+      <div class="label">📐 Soft Margin SVM (C-SVM)</div>
+      <div class="formula">
+        Minimize: <strong>(1/2)||w||² + C × Σξᵢ</strong><br><br>
+        Subject to: yᵢ(w·xᵢ + b) ≥ 1 - ξᵢ and ξᵢ ≥ 0<br><br>
+        ξᵢ (xi) = slack variable = how much sample i violates the margin<br><br>
+        <strong>C hyperparameter:</strong><br>
+        &nbsp;&nbsp; Large C → small margin, few errors (more like hard margin, risk overfitting)<br>
+        &nbsp;&nbsp; Small C → wide margin, more errors allowed (better generalization)
+      </div>
+    </div>
+
+    <h3>The Kernel Trick — Handling Non-Linear Data</h3>
+
+    <div class="concept-box">
+      <div class="label">💡 The Kernel Trick Explained</div>
+      <p>Sometimes data is not linearly separable in 2D. The kernel trick <strong>maps data to a higher dimension</strong> where it becomes linearly separable — without actually computing the transformation! It only computes the dot products using kernel functions.</p>
+    </div>
+
+    <div class="math-box">
+      <div class="label">📐 Kernel Functions</div>
+      <div class="formula">
+        <strong>1. Linear Kernel:</strong>  K(xᵢ, xⱼ) = xᵢ · xⱼ<br>
+        &nbsp;&nbsp; Use when data is linearly separable<br><br>
+        <strong>2. Polynomial Kernel:</strong>  K(xᵢ, xⱼ) = (γ·xᵢ·xⱼ + r)ᵈ<br>
+        &nbsp;&nbsp; d = degree, r = coef0. Good for image data<br><br>
+        <strong>3. RBF (Radial Basis Function) / Gaussian Kernel:</strong><br>
+        &nbsp;&nbsp; K(xᵢ, xⱼ) = exp(-γ ||xᵢ - xⱼ||²)<br>
+        &nbsp;&nbsp; γ controls influence radius. Most popular kernel! 🏆<br>
+        &nbsp;&nbsp; Small γ → smooth boundary; Large γ → complex boundary<br><br>
+        <strong>4. Sigmoid Kernel:</strong>  K(xᵢ, xⱼ) = tanh(γ·xᵢ·xⱼ + r)<br>
+        &nbsp;&nbsp; Similar to neural network activation
+      </div>
+    </div>
+
+    <h3>SVM for Multi-Class Classification</h3>
+
+    <div class="algo-card">
+      <div class="card">
+        <h4>One-vs-Rest (OvR)</h4>
+        <ul>
+          <li>Train n binary classifiers (one per class)</li>
+          <li>Each classifier: "is this class X or not X?"</li>
+          <li>Predict whichever gives highest confidence</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>One-vs-One (OvO)</h4>
+        <ul>
+          <li>Train n(n-1)/2 binary classifiers (all pairs)</li>
+          <li>Each: "is this class A or class B?"</li>
+          <li>Majority vote to decide final class</li>
+          <li>Sklearn SVM default for multi-class</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>SVM for Regression — SVR</h3>
+
+    <div class="math-box">
+      <div class="label">📐 Support Vector Regression (SVR)</div>
+      <div class="formula">
+        SVR finds a function f(x) such that all predictions are within ε of actual values.<br><br>
+        <strong>ε-insensitive loss:</strong>  L(y, ŷ) = max(0, |y - ŷ| - ε)<br><br>
+        Points inside the ε-tube → zero loss<br>
+        Points outside → penalized proportionally<br><br>
+        The ε-tube is the "margin" for regression — like a tube around the predicted line.
+      </div>
+    </div>
+
+    <h3>Complete Python Code — SVM All Variants</h3>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">svm_complete.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# SUPPORT VECTOR MACHINES — Complete Implementation
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">import</span> seaborn <span class="k">as</span> sns
+<span class="k">from</span> sklearn <span class="k">import</span> datasets
+<span class="k">from</span> sklearn.svm <span class="k">import</span> SVC, SVR, LinearSVC
+<span class="k">from</span> sklearn.preprocessing <span class="k">import</span> <span class="n">StandardScaler</span>
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split, GridSearchCV
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> classification_report, accuracy_score
+<span class="k">from</span> sklearn.pipeline <span class="k">import</span> Pipeline
+<span class="k">import</span> warnings
+warnings.filterwarnings(<span class="s">'ignore'</span>)
+
+<span class="c"># ══════════════════════════════════════════════════
+# PART 1: Linear SVM — 2D Visualization
+# ══════════════════════════════════════════════════</span>
+<span class="f">print</span>(<span class="s">"=" * 50</span>)
+<span class="f">print</span>(<span class="s">"PART 1: SVM with Linear Kernel"</span>)
+
+X, y = datasets.make_classification(
+    n_samples=<span class="num">200</span>, n_features=<span class="num">2</span>,
+    n_redundant=<span class="num">0</span>, n_clusters_per_class=<span class="num">1</span>,
+    random_state=<span class="num">42</span>
+)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)
+scaler = <span class="n">StandardScaler</span>()
+X_tr_sc = scaler.fit_transform(X_train)
+X_te_sc = scaler.transform(X_test)
+
+svm_linear = SVC(kernel=<span class="s">'linear'</span>, C=<span class="num">1.0</span>)
+svm_linear.fit(X_tr_sc, y_train)
+
+<span class="f">print</span>(<span class="s">f"Number of support vectors: {len(svm_linear.support_vectors_)}"</span>)
+<span class="f">print</span>(<span class="s">f"Accuracy: {accuracy_score(y_test, svm_linear.predict(X_te_sc)):.4f}"</span>)
+
+<span class="c"># ── Plot decision boundary ────────────────────────────────────</span>
+<span class="k">def</span> <span class="f">plot_svm_boundary</span>(clf, X, y, scaler, ax, title):
+    X_sc = scaler.transform(X)
+    h = <span class="num">0.02</span>
+    x_min, x_max = X_sc[:,<span class="num">0</span>].min()-<span class="num">1</span>, X_sc[:,<span class="num">0</span>].max()+<span class="num">1</span>
+    y_min, y_max = X_sc[:,<span class="num">1</span>].min()-<span class="num">1</span>, X_sc[:,<span class="num">1</span>].max()+<span class="num">1</span>
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    
+    ax.contourf(xx, yy, Z, alpha=<span class="num">0.3</span>, cmap=<span class="s">'RdBu'</span>)
+    ax.scatter(X_sc[:,<span class="num">0</span>], X_sc[:,<span class="num">1</span>], c=y, cmap=<span class="s">'RdBu'</span>, edgecolors=<span class="s">'k'</span>, s=<span class="num">50</span>)
+    
+    <span class="c"># Highlight support vectors</span>
+    <span class="k">if</span> <span class="f">hasattr</span>(clf, <span class="s">'support_vectors_'</span>):
+        ax.scatter(clf.support_vectors_[:,<span class="num">0</span>], clf.support_vectors_[:,<span class="num">1</span>],
+                   s=<span class="num">200</span>, linewidth=<span class="num">2</span>, facecolors=<span class="s">'none'</span>, edgecolors=<span class="s">'yellow'</span>,
+                   label=<span class="s">f'Support Vectors ({len(clf.support_vectors_)})'</span>)
+        ax.legend(fontsize=<span class="num">8</span>)
+    ax.set_title(title)
+
+<span class="c"># ══════════════════════════════════════════════════
+# PART 2: Compare All Kernels
+# ══════════════════════════════════════════════════</span>
+<span class="f">print</span>(<span class="s">"\nPART 2: Kernel Comparison"</span>)
+
+<span class="c"># Use moon dataset — not linearly separable</span>
+X_moon, y_moon = datasets.make_moons(n_samples=<span class="num">300</span>, noise=<span class="num">0.15</span>, random_state=<span class="num">42</span>)
+X_circ, y_circ = datasets.make_circles(n_samples=<span class="num">300</span>, noise=<span class="num">0.1</span>, factor=<span class="num">0.5</span>, random_state=<span class="num">42</span>)
+
+datasets_list = [
+    (X, y, <span class="s">'Linear Data'</span>),
+    (X_moon, y_moon, <span class="s">'Moon Data'</span>),
+    (X_circ, y_circ, <span class="s">'Circle Data'</span>)
+]
+
+kernels = [<span class="s">'linear'</span>, <span class="s">'poly'</span>, <span class="s">'rbf'</span>, <span class="s">'sigmoid'</span>]
+fig, axes = plt.subplots(<span class="num">3</span>, <span class="num">4</span>, figsize=(<span class="num">16</span>, <span class="num">12</span>))
+
+<span class="k">for</span> row, (X_d, y_d, dname) <span class="k">in</span> <span class="f">enumerate</span>(datasets_list):
+    sc = <span class="n">StandardScaler</span>()
+    X_d_sc = sc.fit_transform(X_d)
+    X_tr, X_te, y_tr, y_te = train_test_split(X_d_sc, y_d, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)
+    
+    <span class="k">for</span> col, kernel <span class="k">in</span> <span class="f">enumerate</span>(kernels):
+        ax = axes[row][col]
+        clf = SVC(kernel=kernel, C=<span class="num">1.0</span>, gamma=<span class="s">'scale'</span>)
+        clf.fit(X_tr, y_tr)
+        acc = accuracy_score(y_te, clf.predict(X_te))
+        
+        h = <span class="num">0.05</span>
+        x_min, x_max = X_d_sc[:,<span class="num">0</span>].min()-<span class="num">0.5</span>, X_d_sc[:,<span class="num">0</span>].max()+<span class="num">0.5</span>
+        y_min, y_max = X_d_sc[:,<span class="num">1</span>].min()-<span class="num">0.5</span>, X_d_sc[:,<span class="num">1</span>].max()+<span class="num">0.5</span>
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+        Z = clf.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+        
+        ax.contourf(xx, yy, Z, alpha=<span class="num">0.4</span>, cmap=<span class="s">'RdYlBu'</span>)
+        ax.scatter(X_d_sc[:,<span class="num">0</span>], X_d_sc[:,<span class="num">1</span>], c=y_d, cmap=<span class="s">'RdYlBu'</span>, edgecolors=<span class="s">'k'</span>, s=<span class="num">20</span>)
+        ax.set_title(<span class="s">f'{dname}\n{kernel.upper()} | Acc={acc:.2f}'</span>, fontsize=<span class="num">9</span>)
+        ax.set_xticks([]); ax.set_yticks([])
+
+plt.suptitle(<span class="s">'SVM Kernel Comparison Across Different Datasets'</span>, fontsize=<span class="num">14</span>, fontweight=<span class="s">'bold'</span>)
+plt.tight_layout()
+plt.savefig(<span class="s">'svm_kernels.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="c"># ══════════════════════════════════════════════════
+# PART 3: SVM Multi-class (Iris Dataset)
+# ══════════════════════════════════════════════════</span>
+<span class="f">print</span>(<span class="s">"\nPART 3: Multi-class SVM on Iris Dataset"</span>)
+
+iris = datasets.load_iris()
+X_iris, y_iris = iris.data, iris.target
+
+X_tr, X_te, y_tr, y_te = train_test_split(X_iris, y_iris, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)
+pipeline = Pipeline([
+    (<span class="s">'scaler'</span>, <span class="n">StandardScaler</span>()),
+    (<span class="s">'svm'</span>, SVC(kernel=<span class="s">'rbf'</span>, C=<span class="num">10</span>, gamma=<span class="s">'scale'</span>, decision_function_shape=<span class="s">'ovr'</span>))
+])
+pipeline.fit(X_tr, y_tr)
+y_pred = pipeline.predict(X_te)
+<span class="f">print</span>(<span class="s">"\nIris Multi-class Report:"</span>)
+<span class="f">print</span>(classification_report(y_te, y_pred, target_names=iris.target_names))
+
+<span class="c"># ══════════════════════════════════════════════════
+# PART 4: SVR — Support Vector Regression
+# ══════════════════════════════════════════════════</span>
+<span class="f">print</span>(<span class="s">"\nPART 4: Support Vector Regression (SVR)"</span>)
+
+np.random.seed(<span class="num">42</span>)
+X_reg = np.linspace(-<span class="num">5</span>, <span class="num">5</span>, <span class="num">100</span>).reshape(-<span class="num">1</span>, <span class="num">1</span>)
+y_reg = np.sin(X_reg).ravel() + np.random.normal(<span class="num">0</span>, <span class="num">0.2</span>, <span class="num">100</span>)
+
+sc_reg = <span class="n">StandardScaler</span>()
+X_reg_sc = sc_reg.fit_transform(X_reg)
+
+svrs = {
+    <span class="s">'Linear ε=0.1'</span>: SVR(kernel=<span class="s">'linear'</span>, C=<span class="num">1</span>, epsilon=<span class="num">0.1</span>),
+    <span class="s">'RBF ε=0.1'</span>   : SVR(kernel=<span class="s">'rbf'</span>,    C=<span class="num">1</span>, epsilon=<span class="num">0.1</span>),
+    <span class="s">'RBF ε=0.5'</span>   : SVR(kernel=<span class="s">'rbf'</span>,    C=<span class="num">1</span>, epsilon=<span class="num">0.5</span>),
+}
+
+plt.figure(figsize=(<span class="num">15</span>, <span class="num">4</span>))
+<span class="k">for</span> i, (label, svr) <span class="k">in</span> <span class="f">enumerate</span>(svrs.items()):
+    svr.fit(X_reg_sc, y_reg)
+    y_pred_svr = svr.predict(X_reg_sc)
+    
+    plt.subplot(<span class="num">1</span>, <span class="num">3</span>, i+<span class="num">1</span>)
+    plt.scatter(X_reg, y_reg, color=<span class="s">'gray'</span>, s=<span class="num">20</span>, alpha=<span class="num">0.5</span>, label=<span class="s">'Data'</span>)
+    plt.plot(X_reg, y_pred_svr, color=<span class="s">'red'</span>, lw=<span class="num">2</span>, label=<span class="s">'SVR'</span>)
+    plt.scatter(X_reg[svr.support_], y_reg[svr.support_], color=<span class="s">'blue'</span>,
+                s=<span class="num">80</span>, label=<span class="s">f'SV ({len(svr.support_)})'</span>)
+    plt.title(label); plt.legend(fontsize=<span class="num">8</span>)
+
+plt.suptitle(<span class="s">'Support Vector Regression'</span>, fontweight=<span class="s">'bold'</span>)
+plt.tight_layout()
+plt.savefig(<span class="s">'svr.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="c"># ══════════════════════════════════════════════════
+# PART 5: Hyperparameter Tuning with Grid Search
+# ══════════════════════════════════════════════════</span>
+<span class="f">print</span>(<span class="s">"\nPART 5: Grid Search for Best SVM Hyperparameters"</span>)
+
+param_grid = {
+    <span class="s">'C'</span>      : [<span class="num">0.1</span>, <span class="num">1</span>, <span class="num">10</span>, <span class="num">100</span>],
+    <span class="s">'gamma'</span>  : [<span class="s">'scale'</span>, <span class="s">'auto'</span>, <span class="num">0.001</span>, <span class="num">0.1</span>],
+    <span class="s">'kernel'</span> : [<span class="s">'rbf'</span>, <span class="s">'linear'</span>]
+}
+
+scaler2 = <span class="n">StandardScaler</span>()
+X_iris_sc = scaler2.fit_transform(X_iris)
+
+grid_search = GridSearchCV(
+    SVC(), param_grid, cv=<span class="num">5</span>,
+    scoring=<span class="s">'accuracy'</span>, n_jobs=-<span class="num">1</span>, verbose=<span class="num">0</span>
+)
+grid_search.fit(X_iris_sc, y_iris)
+
+<span class="f">print</span>(<span class="s">f"Best Parameters: {grid_search.best_params_}"</span>)
+<span class="f">print</span>(<span class="s">f"Best CV Accuracy: {grid_search.best_score_:.4f}"</span>)
+</pre>
+    </div>
+
+    <h3>SVM Hyperparameter Guide</h3>
+    <table>
+      <tr><th>Hyperparameter</th><th>Effect (Low)</th><th>Effect (High)</th><th>Rule of Thumb</th></tr>
+      <tr><td><strong>C</strong></td><td>Wide margin, more errors (underfit)</td><td>Narrow margin, fewer errors (overfit)</td><td>Try: 0.01, 0.1, 1, 10, 100</td></tr>
+      <tr><td><strong>γ (gamma, RBF)</strong></td><td>Wide influence, smooth boundary</td><td>Narrow influence, complex boundary (overfit)</td><td>Start with 'scale' or 'auto'</td></tr>
+      <tr><td><strong>degree (poly)</strong></td><td>Simpler curve</td><td>More complex curve</td><td>Try 2, 3, 4</td></tr>
+      <tr><td><strong>ε (epsilon, SVR)</strong></td><td>Smaller tube, more support vectors</td><td>Larger tube, fewer SVs</td><td>Use ~0.1 × std(y)</td></tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- WEEK 8 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="week8" class="week-header" data-week="W8">
+  <div class="week-num">WEEK 08 · DAYS 50–60</div>
+  <h2>Capstone Projects + Model Evaluation Mastery</h2>
+  <p>Apply everything — build real, deployable ML projects from scratch.</p>
+</div>
+
+<div id="projects" class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">PROJECT 01</div>
+    <h2 class="lesson-title">House Price Prediction System — End-to-End</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="project-card">
+      <div class="project-tag">🏠 Capstone Project #1 — Regression</div>
+      <h3>Complete House Price Predictor</h3>
+      <p>Build an end-to-end regression model that predicts house prices using Multiple Linear Regression, Ridge, Lasso, and compares them.</p>
+      <div class="project-steps">
+        <ul>
+          <li>Load & explore the California Housing / Ames dataset</li>
+          <li>Perform full EDA with visualizations</li>
+          <li>Feature engineering (log transforms, encoding, interactions)</li>
+          <li>Train Linear Regression, Ridge, Lasso, ElasticNet</li>
+          <li>Compare using cross-validated RMSE and R²</li>
+          <li>Hyperparameter tune the best model</li>
+          <li>Final predictions on holdout test set</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">project1_house_price.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# PROJECT 1: House Price Prediction — End-to-End ML Pipeline
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">import</span> seaborn <span class="k">as</span> sns
+<span class="k">from</span> sklearn.datasets <span class="k">import</span> fetch_california_housing
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split, cross_val_score, KFold
+<span class="k">from</span> sklearn.preprocessing <span class="k">import</span> <span class="n">StandardScaler</span>, PolynomialFeatures
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> LinearRegression, Ridge, Lasso, <span class="n">ElasticNet</span>
+<span class="k">from</span> sklearn.pipeline <span class="k">import</span> Pipeline
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> mean_squared_error, r2_score, mean_absolute_error
+<span class="k">import</span> warnings; warnings.filterwarnings(<span class="s">'ignore'</span>)
+
+<span class="c"># ══ STEP 1: LOAD & EXPLORE DATA ══════════════════════════════</span>
+housing = fetch_california_housing()
+df = pd.DataFrame(housing.data, columns=housing.feature_names)
+df[<span class="s">'target'</span>] = housing.target  <span class="c"># house price in $100k</span>
+
+<span class="f">print</span>(<span class="s">"=== CALIFORNIA HOUSING DATASET ==="</span>)
+<span class="f">print</span>(<span class="s">f"Shape: {df.shape}"</span>)
+<span class="f">print</span>(df.head())
+<span class="f">print</span>(<span class="s">"\nMissing values:"</span>, df.isnull().sum().sum())
+<span class="f">print</span>(<span class="s">"\nStatistics:\n"</span>, df.describe().round(<span class="num">2</span>))
+
+<span class="c"># ══ STEP 2: EDA ═══════════════════════════════════════════════</span>
+fig, axes = plt.subplots(<span class="num">2</span>, <span class="num">4</span>, figsize=(<span class="num">16</span>, <span class="num">8</span>))
+axes = axes.flatten()
+<span class="k">for</span> i, col <span class="k">in</span> <span class="f">enumerate</span>(df.columns):
+    axes[i].hist(df[col], bins=<span class="num">50</span>, edgecolor=<span class="s">'k'</span>, alpha=<span class="num">0.7</span>)
+    axes[i].set_title(col); axes[i].set_xlabel(<span class="s">''</span>)
+plt.suptitle(<span class="s">'Feature Distributions'</span>, fontsize=<span class="num">14</span>)
+plt.tight_layout(); plt.savefig(<span class="s">'p1_distributions.png'</span>); plt.show()
+
+<span class="c"># ══ STEP 3: FEATURE ENGINEERING ══════════════════════════════</span>
+<span class="c"># Log-transform skewed features</span>
+df[<span class="s">'log_Population'</span>] = np.log1p(df[<span class="s">'Population'</span>])
+df[<span class="s">'log_AveOccup'</span>]   = np.log1p(df[<span class="s">'AveOccup'</span>])
+df[<span class="s">'rooms_per_person'</span>] = df[<span class="s">'AveRooms'</span>] / (df[<span class="s">'AveOccup'</span>] + <span class="num">1</span>)
+
+features = [<span class="s">'MedInc'</span>, <span class="s">'HouseAge'</span>, <span class="s">'AveRooms'</span>, <span class="s">'AveBedrms'</span>,
+            <span class="s">'log_Population'</span>, <span class="s">'log_AveOccup'</span>, <span class="s">'Latitude'</span>, <span class="s">'Longitude'</span>,
+            <span class="s">'rooms_per_person'</span>]
+
+X = df[features]
+y = df[<span class="s">'target'</span>]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)
+
+<span class="c"># ══ STEP 4: TRAIN MULTIPLE MODELS ════════════════════════════</span>
+cv = KFold(n_splits=<span class="num">5</span>, shuffle=<span class="num">True</span>, random_state=<span class="num">42</span>)
+
+model_configs = {
+    <span class="s">'Linear Regression'</span>: Pipeline([(<span class="s">'sc'</span>, <span class="n">StandardScaler</span>()), (<span class="s">'mdl'</span>, <span class="n">LinearRegression</span>())]),
+    <span class="s">'Ridge (α=1)'</span>       : Pipeline([(<span class="s">'sc'</span>, <span class="n">StandardScaler</span>()), (<span class="s">'mdl'</span>, Ridge(alpha=<span class="num">1</span>))]),
+    <span class="s">'Ridge (α=10)'</span>      : Pipeline([(<span class="s">'sc'</span>, <span class="n">StandardScaler</span>()), (<span class="s">'mdl'</span>, Ridge(alpha=<span class="num">10</span>))]),
+    <span class="s">'Lasso (α=0.001)'</span>   : Pipeline([(<span class="s">'sc'</span>, <span class="n">StandardScaler</span>()), (<span class="s">'mdl'</span>, Lasso(alpha=<span class="num">0.001</span>))]),
+    <span class="s">'ElasticNet'</span>        : Pipeline([(<span class="s">'sc'</span>, <span class="n">StandardScaler</span>()), (<span class="s">'mdl'</span>, <span class="n">ElasticNet</span>(alpha=<span class="num">0.01</span>))]),
+}
+
+results = {}
+<span class="f">print</span>(<span class="s">"\n=== MODEL COMPARISON (5-fold CV) ==="</span>)
+<span class="k">for</span> name, pipeline <span class="k">in</span> model_configs.items():
+    cv_scores = cross_val_score(pipeline, X_train, y_train,
+                                cv=cv, scoring=<span class="s">'neg_root_mean_squared_error'</span>)
+    cv_rmse = -cv_scores.mean()
+    
+    pipeline.fit(X_train, y_train)
+    test_pred = pipeline.predict(X_test)
+    test_r2   = r2_score(y_test, test_pred)
+    test_rmse = np.sqrt(mean_squared_error(y_test, test_pred))
+    
+    results[name] = {<span class="s">'CV RMSE'</span>: cv_rmse, <span class="s">'Test RMSE'</span>: test_rmse, <span class="s">'Test R²'</span>: test_r2}
+    <span class="f">print</span>(<span class="s">f"{name:25s} | CV RMSE: {cv_rmse:.4f} | Test R²: {test_r2:.4f}"</span>)
+
+<span class="c"># ══ STEP 5: BEST MODEL ANALYSIS ══════════════════════════════</span>
+results_df = pd.DataFrame(results).T.sort_values(<span class="s">'CV RMSE'</span>)
+best_model_name = results_df.index[<span class="num">0</span>]
+best_model = model_configs[best_model_name]
+
+<span class="f">print</span>(<span class="s">f"\n🏆 Best Model: {best_model_name}"</span>)
+y_pred_best = best_model.predict(X_test)
+
+<span class="c"># ══ STEP 6: VISUALIZATION ════════════════════════════════════</span>
+fig, axes = plt.subplots(<span class="num">1</span>, <span class="num">3</span>, figsize=(<span class="num">15</span>, <span class="num">5</span>))
+
+<span class="c"># Model comparison bar chart</span>
+results_df[<span class="s">'Test RMSE'</span>].sort_values().plot(kind=<span class="s">'barh'</span>, ax=axes[<span class="num">0</span>], color=<span class="s">'steelblue'</span>)
+axes[<span class="num">0</span>].set_title(<span class="s">'Test RMSE Comparison'</span>); axes[<span class="num">0</span>].set_xlabel(<span class="s">'RMSE'</span>)
+
+<span class="c"># Actual vs Predicted</span>
+axes[<span class="num">1</span>].scatter(y_test, y_pred_best, alpha=<span class="num">0.3</span>, s=<span class="num">20</span>)
+axes[<span class="num">1</span>].plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], <span class="s">'r--'</span>)
+axes[<span class="num">1</span>].set_xlabel(<span class="s">'Actual Price'</span>); axes[<span class="num">1</span>].set_ylabel(<span class="s">'Predicted'</span>)
+axes[<span class="num">1</span>].set_title(<span class="s">f'Best Model: {best_model_name}'</span>)
+
+<span class="c"># Residual distribution</span>
+residuals = y_test - y_pred_best
+axes[<span class="num">2</span>].hist(residuals, bins=<span class="num">50</span>, color=<span class="s">'coral'</span>, edgecolor=<span class="s">'k'</span>, alpha=<span class="num">0.8</span>)
+axes[<span class="num">2</span>].axvline(<span class="num">0</span>, color=<span class="s">'red'</span>, linestyle=<span class="s">'--'</span>)
+axes[<span class="num">2</span>].set_title(<span class="s">'Residual Distribution'</span>); axes[<span class="num">2</span>].set_xlabel(<span class="s">'Residual'</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'project1_results.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+
+<span class="f">print</span>(<span class="s">"\n=== FINAL RESULTS ==="</span>)
+<span class="f">print</span>(<span class="s">f"Best Model RMSE: ${results_df['Test RMSE'][0]*100:.0f}k"</span>)
+<span class="f">print</span>(<span class="s">f"Best Model R² : {results_df['Test R²'][0]:.4f}"</span>)
+<span class="f">print</span>(<span class="s">"\n✅ Project 1 Complete!"</span>)
+</pre>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROJECT 2 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">PROJECT 02</div>
+    <h2 class="lesson-title">Email Spam Classifier — Classification System</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="project-card">
+      <div class="project-tag">📧 Capstone Project #2 — Classification</div>
+      <h3>Complete Spam Detection System</h3>
+      <p>Build a production-ready email spam classifier using Logistic Regression and SVM, with a complete text preprocessing pipeline.</p>
+      <div class="project-steps">
+        <ul>
+          <li>Load SpamAssassin / SMS Spam dataset</li>
+          <li>Text preprocessing: lowercase, remove punctuation, stopwords</li>
+          <li>Feature extraction: TF-IDF or Bag-of-Words</li>
+          <li>Train Logistic Regression and SVM classifiers</li>
+          <li>Evaluate using Precision, Recall, F1, AUC-ROC</li>
+          <li>Tune threshold for different business requirements</li>
+          <li>Deploy: predict on new emails</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="filename">project2_spam_classifier.py</span>
+        <span class="lang-badge">PYTHON</span>
+      </div>
+      <pre>
+<span class="c"># ============================================================
+# PROJECT 2: Spam Email Classifier — Logistic + SVM
+# ============================================================</span>
+
+<span class="k">import</span> numpy <span class="k">as</span> np
+<span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">import</span> matplotlib.pyplot <span class="k">as</span> plt
+<span class="k">import</span> re
+<span class="k">from</span> sklearn.feature_extraction.text <span class="k">import</span> TfidfVectorizer
+<span class="k">from</span> sklearn.linear_model <span class="k">import</span> <span class="n">LogisticRegression</span>
+<span class="k">from</span> sklearn.svm <span class="k">import</span> LinearSVC, SVC
+<span class="k">from</span> sklearn.model_selection <span class="k">import</span> train_test_split, cross_val_score
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> (classification_report, confusion_matrix,
+                              roc_curve, auc, precision_recall_curve)
+<span class="k">from</span> sklearn.pipeline <span class="k">import</span> Pipeline
+<span class="k">import</span> seaborn <span class="k">as</span> sns
+
+<span class="c"># ── STEP 1: Create Synthetic Email Dataset ───────────────────</span>
+<span class="c"># In a real project, use: UCI SMS Spam Collection or SpamAssassin</span>
+spam_emails = [
+    <span class="s">"WINNER!! Claim your prize now, click here immediately"</span>,
+    <span class="s">"FREE gift cards! Limited time offer! Act now!!!"</span>,
+    <span class="s">"You have won $1,000,000 lottery! Send bank details"</span>,
+    <span class="s">"Urgent! Your account suspended. Click to verify"</span>,
+    <span class="s">"Buy cheap pills online, no prescription needed"</span>,
+    <span class="s">"Make money fast from home, guaranteed income"</span>,
+    <span class="s">"Hot deals! Discount 90% off, order now!"</span>,
+    <span class="s">"Congratulations! You've been selected for special offer"</span>,
+    <span class="s">"Investment opportunity! Double your money in 24 hours"</span>,
+    <span class="s">"Free iPhone! Just pay shipping. Click here now"</span>,
+    <span class="s">"Weight loss miracle! Lose 30 pounds in 30 days"</span>,
+    <span class="s">"Casino online! Play and win real cash now"</span>,
+    <span class="s">"Enlarge your income with our proven system"</span>,
+    <span class="s">"Nigerian prince needs your help to transfer money"</span>,
+    <span class="s">"Refinance your mortgage! Lowest rates ever"</span>,
+]
+
+ham_emails = [
+    <span class="s">"Hi, can we schedule a meeting tomorrow afternoon?"</span>,
+    <span class="s">"Please find attached the quarterly report for review"</span>,
+    <span class="s">"What time does the project presentation start?"</span>,
+    <span class="s">"The team lunch is at 12:30 today at the cafeteria"</span>,
+    <span class="s">"Could you review my pull request when you get a chance?"</span>,
+    <span class="s">"Reminder: performance reviews are due by Friday"</span>,
+    <span class="s">"Happy birthday! Hope you have a wonderful day"</span>,
+    <span class="s">"Thanks for your help with the client proposal yesterday"</span>,
+    <span class="s">"The database migration is scheduled for this weekend"</span>,
+    <span class="s">"Can you send me the latest version of the design mockups?"</span>,
+    <span class="s">"The sprint retrospective is at 3pm in the conference room"</span>,
+    <span class="s">"Please update your timesheet before end of week"</span>,
+    <span class="s">"The new library version was released, should we upgrade?"</span>,
+    <span class="s">"Dinner at 7pm? Let me know if you can make it"</span>,
+    <span class="s">"Training session on Python best practices next Tuesday"</span>,
+]
+
+<span class="c"># Augment with more examples</span>
+emails = spam_emails * <span class="num">30</span> + ham_emails * <span class="num">30</span>
+labels = [<span class="num">1</span>] * (len(spam_emails) * <span class="num">30</span>) + [<span class="num">0</span>] * (len(ham_emails) * <span class="num">30</span>)
+
+<span class="c"># Add slight variations</span>
+np.random.seed(<span class="num">42</span>)
+augmented_emails, augmented_labels = [], []
+<span class="k">for</span> email, label <span class="k">in</span> <span class="f">zip</span>(emails, labels):
+    augmented_emails.append(email)
+    augmented_labels.append(label)
+    <span class="c"># Add variation</span>
+    words = email.split()
+    <span class="k">if</span> len(words) > <span class="num">3</span>:
+        idx = np.random.randint(<span class="num">1</span>, len(words))
+        varied = words[:idx] + words[idx:]
+        augmented_emails.append(<span class="s">' '</span>.join(varied))
+        augmented_labels.append(label)
+
+df = pd.DataFrame({<span class="s">'email'</span>: augmented_emails, <span class="s">'label'</span>: augmented_labels})
+df = df.sample(frac=<span class="num">1</span>, random_state=<span class="num">42</span>).reset_index(drop=<span class="num">True</span>)
+
+<span class="f">print</span>(<span class="s">"=== SPAM DATASET ==="</span>)
+<span class="f">print</span>(<span class="s">f"Total emails: {len(df)}"</span>)
+<span class="f">print</span>(<span class="s">f"Spam:  {df.label.sum()} ({df.label.mean()*100:.1f}%)"</span>)
+<span class="f">print</span>(<span class="s">f"Ham:   {len(df)-df.label.sum()} ({(1-df.label.mean())*100:.1f}%)"</span>)
+
+<span class="c"># ── STEP 2: Text Preprocessing ────────────────────────────────</span>
+<span class="k">def</span> <span class="f">preprocess_email</span>(text):
+    <span class="s">"""Clean email text"""</span>
+    text = text.lower()                      <span class="c"># lowercase</span>
+    text = re.sub(r'[^a-z\s]', <span class="s">''</span>, text)   <span class="c"># remove non-letters</span>
+    text = re.sub(r'\s+', <span class="s">' '</span>, text)        <span class="c"># normalize whitespace</span>
+    <span class="k">return</span> text.strip()
+
+df[<span class="s">'clean_email'</span>] = df[<span class="s">'email'</span>].<span class="f">apply</span>(preprocess_email)
+
+<span class="c"># ── STEP 3: Split Data ────────────────────────────────────────</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    df[<span class="s">'clean_email'</span>], df[<span class="s">'label'</span>],
+    test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>, stratify=df[<span class="s">'label'</span>]
+)
+
+<span class="c"># ── STEP 4: Build Pipelines ───────────────────────────────────</span>
+pipelines = {
+    <span class="s">'Logistic Regression'</span>: Pipeline([
+        (<span class="s">'tfidf'</span>, TfidfVectorizer(max_features=<span class="num">5000</span>, ngram_range=(<span class="num">1</span>,<span class="num">2</span>))),
+        (<span class="s">'clf'</span>, <span class="n">LogisticRegression</span>(C=<span class="num">1.0</span>, max_iter=<span class="num">1000</span>))
+    ]),
+    <span class="s">'Linear SVM'</span>: Pipeline([
+        (<span class="s">'tfidf'</span>, TfidfVectorizer(max_features=<span class="num">5000</span>, ngram_range=(<span class="num">1</span>,<span class="num">2</span>))),
+        (<span class="s">'clf'</span>, LinearSVC(C=<span class="num">1.0</span>))
+    ]),
+    <span class="s">'SVM RBF'</span>: Pipeline([
+        (<span class="s">'tfidf'</span>, TfidfVectorizer(max_features=<span class="num">2000</span>)),
+        (<span class="s">'clf'</span>, SVC(kernel=<span class="s">'rbf'</span>, C=<span class="num">10</span>, probability=<span class="num">True</span>))
+    ])
+}
+
+<span class="c"># ── STEP 5: Train & Evaluate ──────────────────────────────────</span>
+<span class="f">print</span>(<span class="s">"\n=== MODEL RESULTS ==="</span>)
+best_f1 = <span class="num">0</span>; best_model = <span class="num">None</span>
+
+<span class="k">for</span> name, pipe <span class="k">in</span> pipelines.items():
+    pipe.fit(X_train, y_train)
+    y_pred = pipe.predict(X_test)
+    
+    cv_score = cross_val_score(pipe, df[<span class="s">'clean_email'</span>], df[<span class="s">'label'</span>],
+                               cv=<span class="num">5</span>, scoring=<span class="s">'f1'</span>).mean()
+    
+    <span class="f">print</span>(<span class="s">f"\n── {name} ──"</span>)
+    <span class="f">print</span>(<span class="s">f"CV F1: {cv_score:.4f}"</span>)
+    <span class="f">print</span>(classification_report(y_test, y_pred, target_names=[<span class="s">'Ham'</span>, <span class="s">'Spam'</span>]))
+    
+    <span class="k">if</span> cv_score > best_f1:
+        best_f1 = cv_score
+        best_model = pipe
+        best_name = name
+
+<span class="c"># ── STEP 6: Best Model Analysis ──────────────────────────────</span>
+<span class="f">print</span>(<span class="s">f"\n🏆 Best Model: {best_name} (F1={best_f1:.4f})"</span>)
+
+<span class="c"># ROC Curve (for models with probability)</span>
+<span class="k">if</span> <span class="f">hasattr</span>(best_model, <span class="s">'predict_proba'</span>):
+    y_proba = best_model.predict_proba(X_test)[:, <span class="num">1</span>]
+    fpr, tpr, _ = roc_curve(y_test, y_proba)
+    roc_auc = auc(fpr, tpr)
+    <span class="f">print</span>(<span class="s">f"AUC-ROC: {roc_auc:.4f}"</span>)
+
+<span class="c"># ── STEP 7: Test on New Emails ────────────────────────────────</span>
+new_emails = [
+    <span class="s">"FREE money!! Click here now to claim your prize!!!"</span>,
+    <span class="s">"Can we discuss the project timeline in tomorrow's meeting?"</span>,
+    <span class="s">"Congratulations you won a vacation package"</span>,
+    <span class="s">"Please review the attached code before deployment"</span>,
+]
+
+<span class="f">print</span>(<span class="s">"\n=== TESTING ON NEW EMAILS ==="</span>)
+<span class="k">for</span> email <span class="k">in</span> new_emails:
+    clean = preprocess_email(email)
+    pred = best_model.predict([clean])[<span class="num">0</span>]
+    label = <span class="s">'🚨 SPAM'</span> <span class="k">if</span> pred == <span class="num">1</span> <span class="k">else</span> <span class="s">'✅ HAM'</span>
+    <span class="f">print</span>(<span class="s">f"{label}: {email[:60]}..."</span>)
+
+<span class="c"># ── STEP 8: Confusion Matrix + Top Features ──────────────────</span>
+fig, axes = plt.subplots(<span class="num">1</span>, <span class="num">2</span>, figsize=(<span class="num">12</span>, <span class="num">5</span>))
+
+y_pred_best = best_model.predict(X_test)
+cm = confusion_matrix(y_test, y_pred_best)
+sns.heatmap(cm, annot=<span class="num">True</span>, fmt=<span class="s">'d'</span>, cmap=<span class="s">'Blues'</span>, ax=axes[<span class="num">0</span>],
+            xticklabels=[<span class="s">'Ham'</span>, <span class="s">'Spam'</span>], yticklabels=[<span class="s">'Ham'</span>, <span class="s">'Spam'</span>])
+axes[<span class="num">0</span>].set_title(<span class="s">f'Confusion Matrix: {best_name}'</span>)
+axes[<span class="num">0</span>].set_ylabel(<span class="s">'Actual'</span>); axes[<span class="num">0</span>].set_xlabel(<span class="s">'Predicted'</span>)
+
+<span class="c"># Top spam/ham words from logistic regression</span>
+lr_pipe = pipelines[<span class="s">'Logistic Regression'</span>]
+tfidf = lr_pipe.named_steps[<span class="s">'tfidf'</span>]
+clf   = lr_pipe.named_steps[<span class="s">'clf'</span>]
+feature_names = tfidf.get_feature_names_out()
+coefs = clf.coef_[<span class="num">0</span>]
+top_spam = pd.Series(coefs, index=feature_names).nlargest(<span class="num">15</span>)
+top_ham  = pd.Series(coefs, index=feature_names).nsmallest(<span class="num">15</span>)
+top_features = pd.concat([top_spam, top_ham])
+colors = [<span class="s">'red'</span> <span class="k">if</span> c > <span class="num">0</span> <span class="k">else</span> <span class="s">'blue'</span> <span class="k">for</span> c <span class="k">in</span> top_features]
+top_features.sort_values().plot(kind=<span class="s">'barh'</span>, ax=axes[<span class="num">1</span>], color=colors, alpha=<span class="num">0.8</span>)
+axes[<span class="num">1</span>].set_title(<span class="s">'Top SPAM (red) vs HAM (blue) Words'</span>)
+axes[<span class="num">1</span>].axvline(<span class="num">0</span>, color=<span class="s">'black'</span>)
+
+plt.tight_layout()
+plt.savefig(<span class="s">'project2_results.png'</span>, dpi=<span class="num">150</span>)
+plt.show()
+<span class="f">print</span>(<span class="s">"\n✅ Project 2 Complete!"</span>)
+</pre>
+    </div>
+
+  </div>
+</div>
+
+<!-- BONUS PROJECTS -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">BONUS PROJECTS</div>
+    <h2 class="lesson-title">Additional Project Ideas with Code Sketches</h2>
+  </div>
+  <div class="lesson-body">
+
+    <div class="project-card">
+      <div class="project-tag">💳 Project #3 — Classification</div>
+      <h3>Credit Card Fraud Detection</h3>
+      <p>Highly imbalanced dataset — use SMOTE oversampling + Logistic Regression + SVM. Focus on Recall to minimize false negatives (missed frauds).</p>
+      <div class="project-steps">
+        <ul>
+          <li>Load Kaggle Credit Card Fraud dataset</li>
+          <li>Handle class imbalance using SMOTE (Synthetic Minority Over-sampling)</li>
+          <li>Scale features, train Logistic Regression + SVM</li>
+          <li>Optimize threshold for maximum fraud recall</li>
+          <li>Report: Precision-Recall Curve, AUC, F1</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">📈 Project #4 — Regression</div>
+      <h3>Stock Price Movement Predictor</h3>
+      <p>Use technical indicators as features + Ridge/Lasso to predict next-day returns. Understand that ML in finance requires careful validation (no look-ahead bias!).</p>
+      <div class="project-steps">
+        <ul>
+          <li>Download stock data with yfinance</li>
+          <li>Create technical indicators (MA, RSI, MACD) as features</li>
+          <li>Use TimeSeriesSplit for proper temporal cross-validation</li>
+          <li>Train and compare Ridge, Lasso, Linear SVR</li>
+          <li>Evaluate with financial metrics (Sharpe ratio concept)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">🏥 Project #5 — Classification</div>
+      <h3>Disease Prediction from Symptoms</h3>
+      <p>Multi-class SVM to classify diseases from symptom features. Practice OvR/OvO strategies and probability calibration.</p>
+      <div class="project-steps">
+        <ul>
+          <li>Load disease symptom dataset</li>
+          <li>Encode categorical symptoms (one-hot / label encoding)</li>
+          <li>Train SVM with different kernels</li>
+          <li>Use Grid Search for optimal C and gamma</li>
+          <li>Build simple prediction interface</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FINAL REVIEW -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">FINAL LESSON</div>
+    <h2 class="lesson-title">Complete Algorithm Reference + Decision Guide</h2>
+  </div>
+  <div class="lesson-body">
+
+    <h3>Master Algorithm Selection Guide</h3>
+
+    <table>
+      <tr><th>Problem Type</th><th>Dataset Size</th><th>Algorithm</th><th>Why</th></tr>
+      <tr><td>Regression</td><td>Small–Medium</td><td>Linear Regression</td><td>Simple, interpretable baseline</td></tr>
+      <tr><td>Regression, Noisy</td><td>Any</td><td>Ridge Regression</td><td>Regularized, all features important</td></tr>
+      <tr><td>Regression, Sparse Features</td><td>Any</td><td>Lasso Regression</td><td>Feature selection built-in</td></tr>
+      <tr><td>Binary Classification</td><td>Small–Medium</td><td>Logistic Regression</td><td>Probabilistic, interpretable</td></tr>
+      <tr><td>Binary Classification</td><td>Small–Medium</td><td>SVM (RBF)</td><td>High-dimensional, non-linear</td></tr>
+      <tr><td>Multi-class Classification</td><td>Small–Medium</td><td>SVM (OvO)</td><td>Effective with multiple classes</td></tr>
+      <tr><td>Text Classification</td><td>Any</td><td>Logistic Reg + TF-IDF</td><td>Fast, interpretable, scalable</td></tr>
+      <tr><td>Non-linear boundaries</td><td>Small–Medium</td><td>SVM with RBF kernel</td><td>Excellent non-linear classifier</td></tr>
+    </table>
+
+    <h3>Mathematics Quick Reference</h3>
+
+    <div class="math-box">
+      <div class="label">📐 All Key Formulas at a Glance</div>
+      <div class="formula">
+        <strong>SLR:</strong> ŷ = β₀ + β₁x<br>
+        <strong>MLR:</strong> ŷ = β₀ + β₁x₁ + ... + βₙxₙ = Xβ<br>
+        <strong>OLS:</strong> β = (XᵀX)⁻¹ Xᵀy<br>
+        <strong>MSE:</strong> (1/n)Σ(yᵢ - ŷᵢ)²<br>
+        <strong>R²:</strong> 1 - SS_res/SS_tot<br><br>
+        <strong>Logistic:</strong> P(y=1) = σ(Xβ) = 1/(1+e^(-Xβ))<br>
+        <strong>Log Loss:</strong> -(1/n)Σ[y·log(ŷ) + (1-y)·log(1-ŷ)]<br><br>
+        <strong>Gradient Descent:</strong> θ := θ - α∇J(θ)<br>
+        <strong>Ridge:</strong> min ||Xβ-y||² + λ||β||²<br>
+        <strong>Lasso:</strong> min ||Xβ-y||² + λ||β||₁<br><br>
+        <strong>SVM Margin:</strong> 2/||w||<br>
+        <strong>SVM Objective:</strong> min (1/2)||w||² + CΣξᵢ<br>
+        <strong>RBF Kernel:</strong> K(xᵢ,xⱼ) = exp(-γ||xᵢ-xⱼ||²)<br>
+      </div>
+    </div>
+
+    <h3>Common Mistakes Beginners Make</h3>
+    <div class="warning">
+      <ol>
+        <li><strong>Data leakage</strong>: Fitting scaler on ALL data (should only fit on training set!)</li>
+        <li><strong>Not scaling</strong>: Using SVM or Logistic Regression without StandardScaler</li>
+        <li><strong>Wrong metric</strong>: Using accuracy for imbalanced datasets</li>
+        <li><strong>No validation</strong>: Evaluating on training data (look at test/CV scores!)</li>
+        <li><strong>Ignoring EDA</strong>: Jumping to models without exploring data first</li>
+        <li><strong>Overfitting</strong>: High train score, low test score — add regularization</li>
+        <li><strong>Wrong problem framing</strong>: Treating regression as classification or vice versa</li>
+      </ol>
+    </div>
+
+    <h3>Your Learning Path After This Course</h3>
+
+    <div class="concept-box">
+      <div class="label">🚀 What's Next?</div>
+      <ul>
+        <li><strong>Tree-Based Methods</strong>: Decision Trees, Random Forest, Gradient Boosting (XGBoost)</li>
+        <li><strong>Neural Networks</strong>: Deep Learning with TensorFlow/PyTorch</li>
+        <li><strong>Unsupervised Learning</strong>: K-Means, DBSCAN, PCA, t-SNE</li>
+        <li><strong>Ensemble Methods</strong>: Bagging, Boosting, Stacking</li>
+        <li><strong>Feature Engineering</strong>: Advanced techniques for better models</li>
+        <li><strong>MLOps</strong>: Deploying models with Flask/FastAPI, Docker, cloud</li>
+        <li><strong>Kaggle Competitions</strong>: Practice on real datasets with leaderboards</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider">✦ &nbsp; COURSE COMPLETE &nbsp; ✦</div>
+
+</main>
+
+<footer>
+  <strong>ML.Academy</strong> — 2-Month Machine Learning Complete Course<br><br>
+  Algorithms Covered: Simple Linear Regression · Multiple Linear Regression · Logistic Regression<br>
+  Gradient Descent · SGD · Adam · Momentum · RMSProp · Ridge · Lasso · ElasticNet<br>
+  SVM (Linear, Polynomial, RBF, Sigmoid) · SVR · Multi-class SVM<br><br>
+  <em>Made with ❤️ for ML beginners everywhere. Keep learning, keep building.</em>
+</footer>
+
+</body>
+</html>
